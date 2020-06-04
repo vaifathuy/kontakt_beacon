@@ -2,10 +2,16 @@ PODS:
   - Flutter (1.0.0)
   - kontakt_beacon (0.0.1):
     - Flutter
+    - KontaktSDK (~> 1.3)
+  - KontaktSDK (1.5.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - kontakt_beacon (from `.symlinks/plugins/kontakt_beacon/ios`)
+
+SPEC REPOS:
+  trunk:
+    - KontaktSDK
 
 EXTERNAL SOURCES:
   Flutter:
@@ -15,7 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  kontakt_beacon: 7e2159736a367129cf03865a72be4be52251fd9b
+  kontakt_beacon: d3b388fa33f1623dbe68858a7909f2dad5eb72a6
+  KontaktSDK: 68cc25fd7fbab5b03b1c86db440620e55b031580
 
 PODFILE CHECKSUM: f42fa49cdc7143f680653cf40c5c794811f22c46
 
