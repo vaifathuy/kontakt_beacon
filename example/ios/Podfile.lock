@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - kontakt_beacon (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - kontakt_beacon (from `.symlinks/plugins/kontakt_beacon/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  kontakt_beacon:
+    :path: ".symlinks/plugins/kontakt_beacon/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  kontakt_beacon: 7e2159736a367129cf03865a72be4be52251fd9b
+
+PODFILE CHECKSUM: f42fa49cdc7143f680653cf40c5c794811f22c46
+
+COCOAPODS: 1.8.4
