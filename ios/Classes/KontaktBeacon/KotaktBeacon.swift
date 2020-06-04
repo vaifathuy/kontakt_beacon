@@ -13,14 +13,15 @@ class KontaktBeacon{
     fileprivate var channelIdentifer: PlatformChannelIdentifier!
     fileprivate var methodChannel: FlutterMethodChannel!
     fileprivate var eventChannel: FlutterEventChannel?
-    fileprivate var swiftStreamHandler = SwiftStreamHandler()
     
-    // Closure
-//    var platformStreamDidConnect: ((_ isConnected: Bool, _ arguments: Any?, _ eventSink: FlutterEventSink?) -> Void)?
+    fileprivate var swiftStreamHandler = SwiftStreamHandler()
+    fileprivate var swiftChannelHandler: SwiftChannelHandler!
     
     // Constructor
     init(identifier: PlatformChannelIdentifier, messenger: FlutterBinaryMessenger) {
         self.channelIdentifer = identifier
+        
+        
         setupCommunicationChannels(messenger: messenger)
     }
     
@@ -43,7 +44,6 @@ class KontaktBeacon{
         methodChannel.setMethodCallHandler { (call, result) in
             switch call.method {
             case methodName:
-                self.scheduleNotification()
                 result("From iOS")
             default: result(FlutterMethodNotImplemented)
             }

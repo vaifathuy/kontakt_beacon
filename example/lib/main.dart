@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-//            KontaktBeacon.shared.runMethodTest();
+            KontaktBeacon.shared.runMethodTest();
           },
           tooltip: 'Start',
           child: Icon(Icons.add_to_home_screen),
