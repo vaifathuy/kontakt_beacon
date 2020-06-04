@@ -5,13 +5,14 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
     fileprivate static var kontaktBeacon: KontaktBeacon!
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        initBeacon(messenger: registrar.messenger())
+        setupFlutterCommunication(messenger: registrar.messenger())
     }
     
-    fileprivate static func initBeacon(messenger: FlutterBinaryMessenger){
+    fileprivate static func setupFlutterCommunication(messenger: FlutterBinaryMessenger){
         let methodChannelName = "vaifat.planb.kontakt_beacon"
         let eventChannelName = "vaifat.planb.kontakt_beacon/beaconStatus"
         let channelIdentifier = PlatformChannelIdentifier(methodChannelName: methodChannelName, eventChannelName: eventChannelName)
-        kontaktBeacon = KontaktBeacon(identifier: channelIdentifier, messenger:  messenger)
+        let channelHandler = SwiftChannelHandler(identifier: channelIdentifier, messenger: messenger)
+        channelHandler.setupOperation()
     }
 }
