@@ -17,6 +17,8 @@ class SwiftChannelHandler {
     
     fileprivate let swiftStreamHandler = SwiftStreamHandler()
     
+    var didSetMethodCallHandler: ((_ methodChannel: FlutterMethodChannel, _ methodCall: FlutterMethodCall, _ result: FlutterResult) -> Void)!
+    
     init(identifier: PlatformChannelIdentifier, messenger: FlutterBinaryMessenger) {
         self.channelIdentifer = identifier
         self.messenger = messenger
@@ -30,34 +32,12 @@ class SwiftChannelHandler {
             eventChannel = FlutterEventChannel(name: channelIdentifer.eventChannelName!, binaryMessenger: messenger)
             eventChannel?.setStreamHandler(swiftStreamHandler)
         }
-        
-        self.scheduleNotification()
     }
     
     fileprivate func setupMethodHandler(){
-        let methodName = "methodTest"
         // MARK: Methods Handler
         methodChannel.setMethodCallHandler { (call, result) in
-            switch call.method {
-            case methodName:
-                result("From iOS")
-            default: result(FlutterMethodNotImplemented)
-            }
-        }
-    }
-    
-    
-    // TESTING PART
-    fileprivate var count = 0
-    
-    fileprivate func scheduleNotification(){
-        if #available(iOS 10.0, *) {
-            Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
-                self.count = self.count + 1
-                self.sendEventMessage(message: self.count)
-            }
-        } else {
-            swiftStreamHandler.addStream(stream: "Failed to start scheduleNotification")
+            self.didSetMethodCallHandler(self.methodChannel, call, result)
         }
     }
 }

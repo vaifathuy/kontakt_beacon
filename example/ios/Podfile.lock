@@ -4,10 +4,16 @@ PODS:
     - Flutter
     - KontaktSDK (~> 1.3)
   - KontaktSDK (1.5.1)
+  - location (0.0.1):
+    - Flutter
+  - location_web (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - kontakt_beacon (from `.symlinks/plugins/kontakt_beacon/ios`)
+  - location (from `.symlinks/plugins/location/ios`)
+  - location_web (from `.symlinks/plugins/location_web/ios`)
 
 SPEC REPOS:
   trunk:
@@ -18,11 +24,17 @@ EXTERNAL SOURCES:
     :path: Flutter
   kontakt_beacon:
     :path: ".symlinks/plugins/kontakt_beacon/ios"
+  location:
+    :path: ".symlinks/plugins/location/ios"
+  location_web:
+    :path: ".symlinks/plugins/location_web/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   kontakt_beacon: d3b388fa33f1623dbe68858a7909f2dad5eb72a6
   KontaktSDK: 68cc25fd7fbab5b03b1c86db440620e55b031580
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
+  location_web: b94e7433cfe28c0f7c8923c2ee482824b32e55a7
 
 PODFILE CHECKSUM: f42fa49cdc7143f680653cf40c5c794811f22c46
 

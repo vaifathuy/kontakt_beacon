@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:kontakt_beacon/kontakt_beacon.dart';
+import 'package:location/location.dart';
+import 'package:kontakt_beacon/beacon.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,11 +16,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  Location location = new Location();
+
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
+  LocationData _locationData;
 
   @override
   void initState() {
     super.initState();
-    KontaktBeacon.shared.setupEventListener();
+    _setupLocation();
   }
 
   @override
@@ -34,12 +40,47 @@ class _MyAppState extends State<MyApp> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            KontaktBeacon.shared.runMethodTest();
+            Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '586f47707a77');
+            startBeaconMonitoring(beaconI);
           },
           tooltip: 'Start',
           child: Icon(Icons.add_to_home_screen),
         ),
       ),
     );
+  }
+
+  // Helper functions
+  void _setupLocation() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }else {
+        KontaktBeacon.shared.setupEventListener();
+      }
+    }else {
+      KontaktBeacon.shared.setupEventListener();
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }else {
+        KontaktBeacon.shared.setupEventListener();
+      }
+    }
+  }
+  
+  void startBeaconMonitoring(Beacon beacon) async {
+    try {
+      dynamic result = await KontaktBeacon.shared.startEddystoneMonitoring(beacon);
+      print(result);
+    } catch (e){
+      print(e.toString());
+    }
   }
 }
