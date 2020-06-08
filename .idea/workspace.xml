@@ -5,38 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba02fa0b-ace6-44a3-bd66-a948da56660d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/FlutterMethodName.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/beacon.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/platform_method_name.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/FlutterMethodName.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/beacon.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/platform_method_name.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/Enums/BeaconStatus.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/Enums/SwiftFlutterError.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/Results/ApplicationStateFlutterResult.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/Results/BeaconFlutterResult.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/Enums/BeaconStatus.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/Enums/SwiftFlutterError.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/Results/ApplicationStateFlutterResult.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/Results/BeaconFlutterResult.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/Enums/FlutterMethodName.swift" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/BeaconStatus.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/BeaconDevices.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/Enums/FlutterMethodName.swift" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/KotaktBeacon.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/KotaktBeacon.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/SwiftChannelHandler.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/SwiftChannelHandler.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/SwiftStreamHandler.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/KontaktBeacon/SwiftStreamHandler.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/SwiftKontaktBeaconPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/ios/Classes/SwiftKontaktBeaconPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/beacon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/Helper/beacon.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/kontakt_beacon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/kontakt_beacon.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/platform_method_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/kontakt_beacon/lib/Helper/platform_method_name.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/BeaconStatus.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/BeaconDevices.swift" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/KotaktBeacon.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/KotaktBeacon.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/SwiftChannelHandler.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/SwiftChannelHandler.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/SwiftStreamHandler.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/SwiftStreamHandler.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftKontaktBeaconPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftKontaktBeaconPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/beacon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Helper/beacon.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/kontakt_beacon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/kontakt_beacon.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/platform_method_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Helper/platform_method_name.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -59,14 +59,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/kontakt_beacon.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+            <state relative-caret-position="462">
+              <caret line="33" column="53" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/platform_method_name.dart">
+        <entry file="file://$PROJECT_DIR$/lib/Helper/platform_method_name.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="22">
               <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
@@ -74,20 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/beacon.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+            <state relative-caret-position="837">
+              <caret line="82" column="48" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -122,10 +113,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="49" />
-    <option name="y" value="23" />
-    <option name="width" value="1645" />
-    <option name="height" value="1000" />
+    <option name="width" value="2048" />
+    <option name="height" value="1152" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -133,7 +122,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -144,14 +135,23 @@
             <path>
               <item name="kontakt_beacon" type="b2602c69:ProjectViewProjectNode" />
               <item name="kontakt_beacon" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kontakt_beacon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kontakt_beacon" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kontakt_beacon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kontakt_beacon" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="Helper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -161,6 +161,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/Helper" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -201,7 +206,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.033039648" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" visible="true" weight="0.28558224" />
+      <window_info anchor="bottom" id="Run" order="1" weight="0.44454715" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.32929516" />
@@ -261,20 +266,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ios/Classes/SwiftKontaktBeaconPlugin.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/beacon.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/beacon.kt" />
     <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="534">
@@ -289,31 +281,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/kontakt_beacon.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/platform_method_name.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/beacon.dart">
+    <entry file="file://$PROJECT_DIR$/lib/Helper/beacon.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ios/Classes/SwiftKontaktBeaconPlugin.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Helper/platform_method_name.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/kontakt_beacon.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="33" column="53" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+        <state relative-caret-position="837">
+          <caret line="82" column="48" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -45,8 +45,8 @@ class SwiftChannelHandler {
 // API Functions
 extension SwiftChannelHandler {
     // Helper
-    func sendEventMessage(message: Any) {
-        swiftStreamHandler.addStream(stream: message)
+    func sendEventMessage(from streamName: StreamName, message: SwiftFlutterResult) {
+        swiftStreamHandler.addStream(from: streamName, stream: message)
     }
     
     /// In order to make connections to Flutter, this method is required to call after creating SwiftChannelHandler object

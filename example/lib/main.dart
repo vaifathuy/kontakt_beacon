@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:kontakt_beacon/kontakt_beacon.dart';
 import 'package:location/location.dart';
-import 'package:kontakt_beacon/beacon.dart';
+import 'package:kontakt_beacon/Helper/beacon.dart';
 
 void main() {
   runApp(MyApp());
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
       dynamic result = await KontaktBeacon.shared.startEddystoneMonitoring(beacon);
       print(result);
     } catch (e){
-      print(e.toString());
+      print('StartEddystoneMonitoring exception: ${e.toString()}');
     }
   }
 }

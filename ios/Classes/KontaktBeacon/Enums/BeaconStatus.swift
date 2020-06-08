@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+enum BeaconStatus: String{
+    case didDiscover
+    case didFail
+    case didUpdate
+    case unknown
+}

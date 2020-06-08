@@ -8,5 +8,22 @@
 import Foundation
 
 class ApplicationStateFlutterResult: SwiftFlutterResult {
-    func result() -> [String : Any?] { return ["" : ""] }
+    fileprivate var applicationState: UIApplication.State
+    
+    init(state: UIApplication.State) {
+        self.applicationState = state
+    }
+    
+    func result() -> Any {
+        switch applicationState {
+        case .active:
+            return "active"
+        case .background:
+            return "background"
+        case .inactive:
+            return "inactive"
+        @unknown default:
+            return "unknown"
+        }
+    }
 }

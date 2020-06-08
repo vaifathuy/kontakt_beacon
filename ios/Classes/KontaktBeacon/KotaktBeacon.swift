@@ -13,6 +13,12 @@ import KontaktSDK
 class KontaktBeacon: NSObject{
     static var instance: KontaktBeacon = KontaktBeacon()
     fileprivate var eddyStoneManager: KTKEddystoneManager!
+    fileprivate var beacons = [KTKEddystoneRegion]()
+    
+    // MARK: Properties:
+    var targetBeacons: [KTKEddystoneRegion] {
+        return beacons
+    }
     
     // MARK: Closures:
     var eddyStoneDidFailToStart: ((_ manager: KTKEddystoneManager, _ error: Error?) -> Void)!
@@ -36,25 +42,16 @@ extension KontaktBeacon {
     /// - Parameter beaconRegion: region to start monitoring
     func startMonitoringEddyStone(for beaconRegion: KTKEddystoneRegion? = nil){
         eddyStoneManager.startEddystoneDiscovery(in: beaconRegion)
+        guard beaconRegion != nil else { return }
+        beacons.append(beaconRegion!)
+    }
+    
+    func restartMonitoringTargetedEddyStones() {
+        targetBeacons.forEach({ KontaktBeacon.instance.startMonitoringEddyStone(for: $0) })
     }
     
     func checkBluetoothStatus() -> CBManagerState {
         return eddyStoneManager.centralState
-    }
-    
-    func translateProximity(proximity: CLProximity) -> String {
-        switch proximity {
-        case .unknown:
-            return "Unknown"
-        case .immediate:
-            return "Very near"
-        case .near:
-            return "Near"
-        case .far:
-            return "Far"
-        default:
-            return "N/A"
-        }
     }
 }
 

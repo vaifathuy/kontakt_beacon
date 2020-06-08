@@ -9,24 +9,55 @@
 import Foundation
 import Flutter
 
-class SwiftStreamHandler: NSObject, FlutterStreamHandler {
-    var eventSink: FlutterEventSink? = nil
+final class SwiftStreamHandler: NSObject, FlutterStreamHandler {
+    fileprivate var beaconStatusEventSink: FlutterEventSink? = nil
+    fileprivate var applicationStateEventSink: FlutterEventSink? = nil
     
     // Flutter StreamHandler methods
     func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        self.eventSink = events
-        //Start beacon operation
-        return nil
+        guard let arguments = arguments as? [String] else { return SwiftFlutterError.FAILED_ARGUMENTS_RETRIEVAL(message: "Failed to retrieve listener's arguments", detail: nil).error }
+        var errorKeys: [String] = []
+        arguments.forEach({
+            let key = StreamName(rawValue: $0)
+            switch key {
+            case .beaconStatus:
+                self.beaconStatusEventSink = events
+            case .applicationState:
+                self.applicationStateEventSink = events
+            default:
+                errorKeys.append($0)
+            }
+        })
+        return errorKeys.isEmpty ? nil : SwiftFlutterError.EVENT_LISTEN(message: "Failed to handle event broadcasters of the following keys: \(errorKeys.joined(separator: ","))", detail: nil).error
     }
     
     func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        self.eventSink = nil
-        return nil
+        guard let arguments = arguments as? [String] else { return SwiftFlutterError.FAILED_ARGUMENTS_RETRIEVAL(message: "Failed to retrieve listener's arguments", detail: nil).error }
+        var errorKeys: [String] = []
+        arguments.forEach({
+            let key = StreamName(rawValue: $0)
+            switch key {
+            case .beaconStatus:
+                self.beaconStatusEventSink = nil
+            case .applicationState:
+                self.applicationStateEventSink = nil
+            default:
+                errorKeys.append($0)
+            }
+        })
+        return errorKeys.isEmpty ? nil : SwiftFlutterError.EVENT_LISTEN(message: "Failed to handle event broadcasters of the following keys: \(errorKeys.joined(separator: ","))", detail: nil).error
     }
     
     /// Broadcast event to Flutter
-    func addStream(stream: Any){
-        guard eventSink != nil else { return }
-        eventSink!(stream)
+    func addStream(from streamName: StreamName, stream: SwiftFlutterResult){
+        switch streamName {
+        case .beaconStatus:
+            beaconStatusEventSink!(stream.result())
+        case .applicationState:
+            applicationStateEventSink!(stream.result())
+            break
+        }
+//        guard beaconStatusEventSink != nil else { return }
+//        beaconStatusEventSink!(stream)
     }
 }
