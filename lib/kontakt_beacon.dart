@@ -9,6 +9,7 @@ class KontaktBeacon {
   static KontaktBeacon shared = KontaktBeacon();
   MethodChannel _channel = MethodChannel('vaifat.planb.kontakt_beacon/methodChannel');
   EventChannel _eventChannel = EventChannel('vaifat.planb.kontakt_beacon/eventChannel');
+  StreamController<String> testEvent = StreamController();
 
   // MARK: Setup StreamListener from native platform's event
   void setupEventListener() {
@@ -16,11 +17,14 @@ class KontaktBeacon {
       _eventChannel.receiveBroadcastStream(
           ['beaconStatus', 'applicationState']
       ).listen((dynamic event) {
-        print('Received event: $event');
+        testEvent.add(event.toString());
+//        print('Received event: $event');
       }, onError: (dynamic error) {
-        print('Received error: ${error.message}');
+//        print('Received error: ${error.message}');
+        testEvent.add(error.message);
       }, onDone: () {
-        print('onDone');
+//        print('onDone');
+        testEvent.add('onDone');
       });
     } on PlatformException catch (e) {
       throw FlutterError(e.message);
