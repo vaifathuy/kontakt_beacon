@@ -10,7 +10,7 @@ import Foundation
 enum StreamName: String{
     case beaconStatus
     case applicationState
-    
+
     var key: String {
         switch self {
         case .beaconStatus:
