@@ -1,12 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'dart:async';
-
+import 'package:kontakt_beacon/Helper/beacon.dart';
 import 'package:kontakt_beacon/kontakt_beacon.dart';
 import 'package:kontakt_beacon_example/second_screen.dart';
 import 'package:location/location.dart';
-import 'package:kontakt_beacon/Helper/beacon.dart';
 import 'package:rxdart/rxdart.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -38,11 +38,9 @@ class ReceivedNotification {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   notificationAppLaunchDetails =
-      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-
+  await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
   var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-  // Note: permissions aren't requested here just to demonstrate that can be done later using the `requestPermissions()` method
-  // of the `IOSFlutterLocalNotificationsPlugin` class
+
   var initializationSettingsIOS = IOSInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
@@ -56,11 +54,11 @@ void main() async {
       initializationSettingsAndroid, initializationSettingsIOS);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onSelectNotification: (String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    selectNotificationSubject.add(payload);
-  });
+        if (payload != null) {
+          debugPrint('notification payload: ' + payload);
+        }
+        selectNotificationSubject.add(payload);
+      });
   runApp(MyApp());
 }
 
@@ -71,65 +69,56 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+
   Location location = new Location();
 
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
   LocationData _locationData;
-  String info = '';
 
-  @override
-  void initState() {
-    super.initState();
-    _setupLocation();
-    setupEventListener();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _requestIOSPermissions();
-      _configureDidReceiveLocalNotificationSubject();
-      _configureSelectNotificationSubject(context);
-    });
-  }
+  String info = '';
 
   void _requestIOSPermissions() {
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
+        IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
+      alert: true,
+      badge: true,
+      sound: true,
+    );
   }
 
   void _configureDidReceiveLocalNotificationSubject() {
-    didReceiveLocalNotificationSubject.stream
-        .listen((ReceivedNotification receivedNotification) async {
+    didReceiveLocalNotificationSubject.stream.listen((
+        ReceivedNotification receivedNotification) async {
       await showDialog(
         context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: receivedNotification.title != null
-              ? Text(receivedNotification.title)
-              : null,
-          content: receivedNotification.body != null
-              ? Text(receivedNotification.body)
-              : null,
-          actions: [
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: Text('Ok'),
-              onPressed: () async {
-                Navigator.of(context, rootNavigator: true).pop();
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        SecondScreen(receivedNotification.payload),
-                  ),
-                );
-              },
-            )
-          ],
-        ),
+        builder: (BuildContext context) =>
+            CupertinoAlertDialog(
+              title: receivedNotification.title != null
+                  ? Text(receivedNotification.title)
+                  : null,
+              content: receivedNotification.body != null
+                  ? Text(receivedNotification.body)
+                  : null,
+              actions: [
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () async {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SecondScreen(receivedNotification.payload),
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
       );
     });
   }
@@ -157,6 +146,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _setupLocation();
+    setupEventListener();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _requestIOSPermissions();
+      _configureDidReceiveLocalNotificationSubject();
+      _configureSelectNotificationSubject(context);
+    });
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -167,11 +170,11 @@ class _MyAppState extends State<MyApp> {
           child: Text(info),
         ),
         floatingActionButton: FloatingActionButton(
-//          onPressed: () {
+          onPressed: () async {
 //            Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '586f47707a77');
 //            startBeaconMonitoring(beaconI);
-//          },
-//          tooltip: 'Start',
+          },
+          tooltip: 'Start',
           child: Icon(Icons.add_to_home_screen),
         ),
       ),
@@ -191,20 +194,23 @@ class _MyAppState extends State<MyApp> {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
+        print("debug: location not enabled");
         return;
       } else {
+        print("debug: location enabled");
         KontaktBeacon.shared.setupEventListener();
         setupBeacon();
       }
     } else {
+      print("debug: location enabled");
       KontaktBeacon.shared.setupEventListener();
       setupBeacon();
     }
 
     _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
+    if (_permissionGranted == PermissionStatus.DENIED) {
       _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+      if (_permissionGranted != PermissionStatus.GRANTED) {
         return;
       } else {
         KontaktBeacon.shared.setupEventListener();
@@ -213,17 +219,26 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void setupEventListener(){
+  void setupEventListener() {
+    KontaktBeacon.shared.startScanning();
     KontaktBeacon.shared.testEvent.stream.listen((event) {
       _showNotification();
+      setState(() {
+        info = event.toString();
+      });
       print('fromMain: $event');
     });
   }
 
+  void setupBeacon() {
+    Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '6b4761767466');
+    startBeaconMonitoring(beaconI);
+  }
+
   void startBeaconMonitoring(Beacon beacon) async {
     try {
-      dynamic result =
-          await KontaktBeacon.shared.startEddystoneMonitoring(beacon);
+      dynamic result = await KontaktBeacon.shared.startEddystoneMonitoring(
+          beacon);
       setState(() {
         info = result.toString();
       });
@@ -233,10 +248,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void setupBeacon() {
-    Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '586f47707a77');
-    startBeaconMonitoring(beaconI);
-  }
+
 }
 
 class PaddedRaisedButton extends StatelessWidget {

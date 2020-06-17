@@ -18,12 +18,9 @@ class KontaktBeacon {
           ['beaconStatus', 'applicationState']
       ).listen((dynamic event) {
         testEvent.add(event.toString());
-//        print('Received event: $event');
       }, onError: (dynamic error) {
-//        print('Received error: ${error.message}');
         testEvent.add(error.message);
       }, onDone: () {
-//        print('onDone');
         testEvent.add('onDone');
       });
     } on PlatformException catch (e) {
@@ -31,9 +28,41 @@ class KontaktBeacon {
     }
   }
 
+  Future<void> startScanning() async {
+    var methodName = "startScanningBeacon";
+    try {
+      await _channel.invokeMethod(methodName);
+    } on PlatformException catch (e) {
+      throw FlutterError(e.message);
+    } on MissingPluginException {
+      throw FlutterError('$methodName throws MissingPluginException');
+    }
+  }
+  Future<void> stopScaning() async{
+    var methodName = "stopScanningBeacon";
+    try {
+      await _channel.invokeMethod(methodName);
+    } on PlatformException catch (e) {
+      throw FlutterError(e.message);
+    } on MissingPluginException {
+      throw FlutterError('$methodName throws MissingPluginException');
+    }
+  }
+
+  Future<void> startEddystone() async {
+    String methodName = describeEnum((PlatformMethodName.startMonitoringBeacon));
+    try {
+      Map beaconRegion = await _channel.invokeMethod(methodName);
+      return beaconRegion;
+    } on PlatformException catch (e) {
+      throw FlutterError(e.message);
+    } on MissingPluginException {
+      throw FlutterError('$methodName throws MissingPluginException');
+    }
+  }
+
   Future<Map> startEddystoneMonitoring(Beacon beacon) async {
-    String methodName =
-        describeEnum((PlatformMethodName.startMonitoringBeacon));
+    String methodName = describeEnum((PlatformMethodName.startMonitoringBeacon));
     try {
       Map beaconRegion = await _channel.invokeMethod(
           methodName, <String, String>{
@@ -47,4 +76,5 @@ class KontaktBeacon {
       throw FlutterError('$methodName throws MissingPluginException');
     }
   }
+
 }
