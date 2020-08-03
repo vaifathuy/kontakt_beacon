@@ -7,23 +7,21 @@ import 'package:kontakt_beacon/Helper/platform_method_name.dart';
 
 class KontaktBeacon {
   static KontaktBeacon shared = KontaktBeacon();
-  MethodChannel _channel = MethodChannel('vaifat.planb.kontakt_beacon/methodChannel');
-  EventChannel _eventChannel = EventChannel('vaifat.planb.kontakt_beacon/eventChannel');
-  StreamController<String> testEvent = StreamController();
+  MethodChannel _channel =
+      MethodChannel('vaifat.planb.kontakt_beacon/methodChannel');
+  EventChannel _eventChannel =
+      EventChannel('vaifat.planb.kontakt_beacon/eventChannel');
+  StreamController<String> testEvent = StreamController.broadcast();
 
   // MARK: Setup StreamListener from native platform's event
   void setupEventListener() {
     try {
-      _eventChannel.receiveBroadcastStream(
-          ['beaconStatus', 'applicationState']
-      ).listen((dynamic event) {
+      _eventChannel
+          .receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
         testEvent.add(event.toString());
-//        print('Received event: $event');
       }, onError: (dynamic error) {
-//        print('Received error: ${error.message}');
         testEvent.add(error.message);
       }, onDone: () {
-//        print('onDone');
         testEvent.add('onDone');
       });
     } on PlatformException catch (e) {
@@ -31,16 +29,36 @@ class KontaktBeacon {
     }
   }
 
+  Future<void> clearAllTargetedEddyStones() async {
+    invokeMethod(PlatformMethodName.clearAllTargetedEddyStones);
+  }
+
+  Future<void> restartMonitoringTargetedEddyStones() async {
+    await invokeMethod(PlatformMethodName.restartMonitoringTargetedEddyStones);
+  }
+
+  Future<void> stopMonitoringAllEddyStone() async {
+    invokeMethod(PlatformMethodName.stopMonitoringAllEddyStone);
+  }
+
+  Future<void> stopEddystoneMonitoring(Beacon beacon) async {
+    await invokeMethod(PlatformMethodName.stopMonitoringBeacon, <String, String>{
+      'nameSpaceID': beacon.nameSpaceID,
+      'instanceID': beacon.instanceID
+    });
+  }
+
   Future<Map> startEddystoneMonitoring(Beacon beacon) async {
-    String methodName =
-        describeEnum((PlatformMethodName.startMonitoringBeacon));
+    return await invokeMethod(PlatformMethodName.startMonitoringBeacon, <String, String>{
+      'nameSpaceID': beacon.nameSpaceID,
+      'instanceID': beacon.instanceID
+    });
+  }
+
+  Future<dynamic> invokeMethod(PlatformMethodName method, [dynamic arguments]) async {
+    String methodName = describeEnum((method));
     try {
-      Map beaconRegion = await _channel.invokeMethod(
-          methodName, <String, String>{
-        'nameSpaceID': beacon.nameSpaceID,
-        'instanceID': beacon.instanceID
-      });
-      return beaconRegion;
+      return await _channel.invokeMethod(methodName, arguments);
     } on PlatformException catch (e) {
       throw FlutterError(e.message);
     } on MissingPluginException {

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
-
 import 'package:kontakt_beacon/kontakt_beacon.dart';
 import 'package:kontakt_beacon_example/second_screen.dart';
 import 'package:location/location.dart';
@@ -163,16 +162,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text(info),
-        ),
-        floatingActionButton: FloatingActionButton(
-//          onPressed: () {
-//            Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '586f47707a77');
-//            startBeaconMonitoring(beaconI);
-//          },
-//          tooltip: 'Start',
-          child: Icon(Icons.add_to_home_screen),
+        body: StreamBuilder<String>(
+          stream: KontaktBeacon.shared.testEvent.stream,
+          builder: (context, snapshot) {
+            return Center(
+              child: Text(snapshot.data != null ? snapshot.data : ''),
+            );
+          }
         ),
       ),
     );
@@ -216,18 +212,12 @@ class _MyAppState extends State<MyApp> {
   void setupEventListener(){
     KontaktBeacon.shared.testEvent.stream.listen((event) {
       _showNotification();
-      print('fromMain: $event');
     });
   }
 
   void startBeaconMonitoring(Beacon beacon) async {
     try {
-      dynamic result =
-          await KontaktBeacon.shared.startEddystoneMonitoring(beacon);
-      setState(() {
-        info = result.toString();
-      });
-      print(result);
+      await KontaktBeacon.shared.startEddystoneMonitoring(beacon);
     } catch (e) {
       print('StartEddystoneMonitoring exception: ${e.toString()}');
     }

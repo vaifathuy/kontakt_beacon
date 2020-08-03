@@ -8,12 +8,28 @@
 import Foundation
 
 class BeaconFlutterResult: SwiftFlutterResult {
-    fileprivate var beaconStatus: BeaconStatus = .unknown
-    fileprivate var values: [String : String]
+    internal var values: FlutterBeaconResponse
 
-    init(beaconStatus: BeaconStatus = .unknown, values: [String: String]) {
-        self.beaconStatus = beaconStatus
+    init(values: FlutterBeaconResponse) {
         self.values = values
     }
-    func result() -> Any { return [beaconStatus.rawValue: values] }
+    func result() -> SwiftFlutterJSON {
+        return convertToJSON(value: values)
+    }
+    
+    fileprivate func convertToJSON<T: Codable>(value: T) -> String? {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        do {
+            let data = try encoder.encode(value)
+            if let json = String(data: data, encoding: .utf8) {
+                return json
+            }else {
+                return nil
+            }
+        }catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
 }

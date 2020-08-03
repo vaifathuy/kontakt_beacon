@@ -7,6 +7,16 @@
 
 import Foundation
 
+typealias SwiftFlutterJSON = String?
+
 protocol SwiftFlutterResult {
-    func result() -> Any
+    var values: FlutterBeaconResponse { get set }
+    func result() -> SwiftFlutterJSON
+}
+
+extension SwiftFlutterResult {
+    func result() -> SwiftFlutterJSON {
+        return ""
+    }
+    
 }

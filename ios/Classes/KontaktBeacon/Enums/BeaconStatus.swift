@@ -8,8 +8,16 @@
 import Foundation
 
 enum BeaconStatus: String{
-    case didDiscover
-    case didFail
-    case didUpdate
+    case didDiscover = "didMonitor"
+    case didFail = "didFailMonitoring"
+    case didUpdate = "didEnter"
     case unknown
+    
+    var description: String {
+        switch self {
+        case .didDiscover:
+            return ""
+        default: return "Unknown"
+        }
+    }
 }

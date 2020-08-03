@@ -8,22 +8,11 @@
 import Foundation
 
 class ApplicationStateFlutterResult: SwiftFlutterResult {
+    var values: FlutterBeaconResponse
     fileprivate var applicationState: UIApplication.State
 
-    init(state: UIApplication.State) {
+    init(state: UIApplication.State, values: FlutterBeaconResponse) {
         self.applicationState = state
-    }
-
-    func result() -> Any {
-        switch applicationState {
-        case .active:
-            return "active"
-        case .background:
-            return "background"
-        case .inactive:
-            return "inactive"
-        @unknown default:
-            return "unknown"
-        }
+        self.values = values
     }
 }

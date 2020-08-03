@@ -7,13 +7,11 @@
 
 import Foundation
 
-enum FlutterMethodName {
+enum FlutterMethodName: String {
     case startMonitoringBeacon
-
-    var name: String {
-        switch self {
-        case .startMonitoringBeacon:
-            return "startMonitoringBeacon"
-        }
-    }
+    case stopMonitoringBeacon
+    case stopMonitoringAllEddyStone
+    case restartMonitoringTargetedEddyStones
+    case clearAllTargetedEddyStones
+    case unknown
 }

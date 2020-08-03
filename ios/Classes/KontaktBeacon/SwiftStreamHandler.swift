@@ -57,7 +57,5 @@ final class SwiftStreamHandler: NSObject, FlutterStreamHandler {
             applicationStateEventSink!(stream.result())
             break
         }
-//        guard beaconStatusEventSink != nil else { return }
-//        beaconStatusEventSink!(stream)
     }
 }

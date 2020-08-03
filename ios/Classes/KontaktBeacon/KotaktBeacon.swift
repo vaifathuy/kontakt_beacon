@@ -38,20 +38,40 @@ class KontaktBeacon: NSObject{
 
 // Helper functions
 extension KontaktBeacon {
-    /// "startMonitoringBeacon"
     /// - Parameter beaconRegion: region to start monitoring
     func startMonitoringEddyStone(for beaconRegion: KTKEddystoneRegion? = nil){
         eddyStoneManager.startEddystoneDiscovery(in: beaconRegion)
         guard beaconRegion != nil else { return }
-        beacons.append(beaconRegion!)
+        if beacons.first(where: { $0 == beaconRegion! }) == nil {
+            beacons.append(beaconRegion!)
+        }
     }
     
-    func restartMonitoringTargetedEddyStones() {
-        targetBeacons.forEach({ KontaktBeacon.instance.startMonitoringEddyStone(for: $0) })
+    /// - Parameter beaconRegion: region to be removed from beacon monitoring
+    func stopMonitoringEddyStone(for beaconRegion: KTKEddystoneRegion) {
+        eddyStoneManager.stopEddystoneDiscovery(in: beaconRegion)
     }
     
-    func checkBluetoothStatus() -> CBManagerState {
-        return eddyStoneManager.centralState
+    func stopMonitoringAllEddyStone() {
+        eddyStoneManager.stopEddystoneDiscoveryInAllRegions()
+    }
+    
+    @discardableResult
+    func restartMonitoringTargetedEddyStones() -> Bool {
+        if beacons.count > 0 {
+            beacons.forEach({ KontaktBeacon.instance.startMonitoringEddyStone(for: $0) })
+            return true
+        }
+        return false
+    }
+    
+    @discardableResult
+    func clearAllTargetedEddyStones() -> Bool{
+        if beacons.count > 0 {
+            beacons.removeAll()
+            return true
+        }
+        return false
     }
 }
 
