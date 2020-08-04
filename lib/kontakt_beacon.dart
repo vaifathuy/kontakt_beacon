@@ -16,7 +16,6 @@ class KontaktBeacon {
   // MARK: Setup StreamListener from native platform's event
   void setupEventListener() {
     try {
-
       _eventChannel
           .receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
         testEvent.add(event.toString());
