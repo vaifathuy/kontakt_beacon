@@ -1,3 +1,3 @@
 enum PlatformMethodName {
-  startMonitoringBeacon, stopMonitoringBeacon, stopMonitoringAllEddyStone, restartMonitoringTargetedEddyStones, clearAllTargetedEddyStones
+  startScanningBeacon,startMonitoringBeacon, stopMonitoringBeacon, stopMonitoringAllEddyStone, restartMonitoringTargetedEddyStones, clearAllTargetedEddyStones
 }

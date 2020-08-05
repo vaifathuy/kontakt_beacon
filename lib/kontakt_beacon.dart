@@ -7,10 +7,8 @@ import 'package:kontakt_beacon/Helper/platform_method_name.dart';
 
 class KontaktBeacon {
   static KontaktBeacon shared = KontaktBeacon();
-  MethodChannel _channel =
-      MethodChannel('vaifat.planb.kontakt_beacon/methodChannel');
-  EventChannel _eventChannel =
-      EventChannel('vaifat.planb.kontakt_beacon/eventChannel');
+  MethodChannel _channel = MethodChannel('vaifat.planb.kontakt_beacon/methodChannel');
+  EventChannel _eventChannel = EventChannel('vaifat.planb.kontakt_beacon/eventChannel');
   StreamController<String> testEvent = StreamController.broadcast();
 
   // MARK: Setup StreamListener from native platform's event
@@ -29,6 +27,9 @@ class KontaktBeacon {
     }
   }
 
+  Future<void> scanning() async{
+    await invokeMethod(PlatformMethodName.startScanningBeacon);
+  }
   Future<void> clearAllTargetedEddyStones() async {
     invokeMethod(PlatformMethodName.clearAllTargetedEddyStones);
   }
@@ -64,5 +65,10 @@ class KontaktBeacon {
     } on MissingPluginException {
       throw FlutterError('$methodName throws MissingPluginException');
     }
+  }
+
+  Future<String> get platformVersion async {
+    final String version = await _channel.invokeMethod('getPlatformVersion');
+    return version;
   }
 }
