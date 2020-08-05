@@ -6,7 +6,6 @@ import com.kontakt.sdk.android.ble.manager.listeners.EddystoneListener
 import com.kontakt.sdk.android.common.profile.IEddystoneNamespace
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import planb.vaifat.kontakt_beacon.constant.Constants
 import planb.vaifat.kontakt_beacon.model.BeaconEddystone
 
 class KontaktBeaconMethodHandler(private var proximityManager: ProximityManager, var eddystoneListener: EddystoneListener) : MethodChannel.MethodCallHandler {
@@ -16,22 +15,24 @@ class KontaktBeaconMethodHandler(private var proximityManager: ProximityManager,
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
 
-            Constants.START_SCANNING -> {
+            "startScanningBeacon" -> {
                 startScanning()
+                result.success("beacon scanning")
             }
 
-            Constants.START_MONITORING -> {
+            "startMonitoringBeacon" -> {
                 val eddyStones: ArrayList<BeaconEddystone> = ArrayList()
-                val nameSpaceID: String = call.argument<String>(Constants.NAME_SPACE_ID).toString()
-                val instanceID: String = call.argument<String>(Constants.INSTANCE_ID).toString()
-
+                val nameSpaceID: String = call.argument<String>("nameSpaceID").toString()
+                val instanceID: String = call.argument<String>("instanceID").toString()
                 if (nameSpaceID.isNotEmpty() && instanceID.isNotEmpty()) {
+                    result.success("instance id $instanceID namespace $nameSpaceID")
                     eddyStones.add(BeaconEddystone(identifier = "", nameSpaceId = nameSpaceID, instanceId = instanceID))
                     initProximityManagerListener(eddyStones = eddyStones)
                 }
+
             }
 
-            Constants.STOP_SCANNING -> {
+            "stopScanningBeacon" -> {
                 stopScanning()
             }
             "getPlatformVersion" -> {

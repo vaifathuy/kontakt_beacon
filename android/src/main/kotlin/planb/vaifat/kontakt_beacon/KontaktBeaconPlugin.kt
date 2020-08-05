@@ -12,7 +12,6 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import planb.vaifat.kontakt_beacon.constant.Constants
 import java.util.concurrent.TimeUnit
 
 /** KontaktBeaconPlugin */
@@ -43,8 +42,8 @@ class KontaktBeaconPlugin : FlutterPlugin {
   }
 
   private fun setupChannels(messenger: BinaryMessenger, context: Context) {
-    methodChannel = MethodChannel(messenger, Constants.METHOD_CHANNEL)
-    eventChannel = EventChannel(messenger, Constants.EVENT_CHANNEL)
+    methodChannel = MethodChannel(messenger, "vaifat.planb.kontakt_beacon/methodChannel")
+    eventChannel = EventChannel(messenger, "vaifat.planb.kontakt_beacon/eventChannel")
 
     KontaktSDK.initialize(context)
     val receiver = EddystoneBroadCastListener(context = context)
