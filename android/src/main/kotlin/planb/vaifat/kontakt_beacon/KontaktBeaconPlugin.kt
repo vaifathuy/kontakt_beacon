@@ -1,53 +1,68 @@
 package planb.vaifat.kontakt_beacon
 
-import androidx.annotation.NonNull;
-
+import android.content.Context
+import androidx.annotation.NonNull
+import com.kontakt.sdk.android.ble.configuration.ScanMode
+import com.kontakt.sdk.android.ble.configuration.ScanPeriod
+import com.kontakt.sdk.android.ble.manager.ProximityManager
+import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
+import com.kontakt.sdk.android.common.KontaktSDK
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import planb.vaifat.kontakt_beacon.constant.Constants
+import java.util.concurrent.TimeUnit
 
 /** KontaktBeaconPlugin */
-public class KontaktBeaconPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
+class KontaktBeaconPlugin : FlutterPlugin {
+
+  private var proximityManager: ProximityManager? = null
+  private var methodChannel: MethodChannel? = null
+  private var eventChannel: EventChannel? = null
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "kontakt_beacon")
-    channel.setMethodCallHandler(this);
+    setUpProximityManager(flutterPluginBinding.applicationContext)
+    setupChannels(flutterPluginBinding.binaryMessenger, flutterPluginBinding.applicationContext)
   }
 
-  // This static function is optional and equivalent to onAttachedToEngine. It supports the old
-  // pre-Flutter-1.12 Android projects. You are encouraged to continue supporting
-  // plugin registration via this function while apps migrate to use the new Android APIs
-  // post-flutter-1.12 via https://flutter.dev/go/android-project-migration.
-  //
-  // It is encouraged to share logic between onAttachedToEngine and registerWith to keep
-  // them functionally equivalent. Only one of onAttachedToEngine or registerWith will be called
-  // depending on the user's project. onAttachedToEngine or registerWith must both be defined
-  // in the same class.
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "kontakt_beacon")
-      channel.setMethodCallHandler(KontaktBeaconPlugin())
+      val plugin = KontaktBeaconPlugin()
+      plugin.setUpProximityManager(registrar.context())
+      plugin.setupChannels(registrar.messenger(), registrar.context())
     }
   }
 
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
-    }
+  private fun setUpProximityManager(context: Context) {
+    KontaktSDK.initialize(context)
+    proximityManager = ProximityManagerFactory.create(context)
+    proximityManager?.configuration()?.scanMode(ScanMode.BALANCED)?.scanPeriod(ScanPeriod.RANGING)?.deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(1))
+  }
+
+  private fun setupChannels(messenger: BinaryMessenger, context: Context) {
+    methodChannel = MethodChannel(messenger, Constants.METHOD_CHANNEL)
+    eventChannel = EventChannel(messenger, Constants.EVENT_CHANNEL)
+
+    KontaktSDK.initialize(context)
+    val receiver = EddystoneBroadCastListener(context = context)
+    val methodChannelHandler = KontaktBeaconMethodHandler(proximityManager = proximityManager!!, eddystoneListener = receiver)
+    
+    methodChannel?.setMethodCallHandler(methodChannelHandler)
+    eventChannel?.setStreamHandler(receiver)
+    
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
+    teardownChannels()
+  }
+
+  private fun teardownChannels() {
+    methodChannel?.setMethodCallHandler(null)
+    eventChannel?.setStreamHandler(null)
+    methodChannel = null
+    eventChannel = null
   }
 }

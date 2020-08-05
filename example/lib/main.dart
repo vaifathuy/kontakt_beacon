@@ -8,16 +8,9 @@ import 'package:location/location.dart';
 import 'package:kontakt_beacon/Helper/beacon.dart';
 import 'package:rxdart/rxdart.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
-// Streams are created so that app can respond to notification-related events since the plugin is initialised in the `main` function
-final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
-    BehaviorSubject<ReceivedNotification>();
-
-final BehaviorSubject<String> selectNotificationSubject =
-    BehaviorSubject<String>();
-
+final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject = BehaviorSubject<ReceivedNotification>();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final BehaviorSubject<String> selectNotificationSubject = BehaviorSubject<String>();
 NotificationAppLaunchDetails notificationAppLaunchDetails;
 
 class ReceivedNotification {
@@ -36,12 +29,9 @@ class ReceivedNotification {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  notificationAppLaunchDetails =
-      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-
+  notificationAppLaunchDetails = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
   var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-  // Note: permissions aren't requested here just to demonstrate that can be done later using the `requestPermissions()` method
-  // of the `IOSFlutterLocalNotificationsPlugin` class
+
   var initializationSettingsIOS = IOSInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
@@ -76,12 +66,18 @@ class _MyAppState extends State<MyApp> {
   PermissionStatus _permissionGranted;
   LocationData _locationData;
   String info = '';
-
+  String version = "";
   @override
   void initState() {
     super.initState();
     _setupLocation();
     setupEventListener();
+    KontaktBeacon.shared.platformVersion.then((value) {
+      print("value ${value}");
+      setState(() {
+        version = value;
+      });
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _requestIOSPermissions();
       _configureDidReceiveLocalNotificationSubject();
@@ -162,13 +158,20 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: StreamBuilder<String>(
-          stream: KontaktBeacon.shared.testEvent.stream,
-          builder: (context, snapshot) {
-            return Center(
-              child: Text(snapshot.data != null ? snapshot.data : ''),
-            );
-          }
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Text("Version $version"),
+              StreamBuilder<String>(
+                stream: KontaktBeacon.shared.testEvent.stream,
+                builder: (context, snapshot) {
+                  return Center(
+                    child: Text(snapshot.data != null ? snapshot.data : 'damn'),
+                  );
+                }
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -198,9 +201,9 @@ class _MyAppState extends State<MyApp> {
     }
 
     _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
+    if (_permissionGranted == PermissionStatus.DENIED) {
       _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+      if (_permissionGranted != PermissionStatus.GRANTED) {
         return;
       } else {
         KontaktBeacon.shared.setupEventListener();
@@ -211,6 +214,7 @@ class _MyAppState extends State<MyApp> {
 
   void setupEventListener(){
     KontaktBeacon.shared.testEvent.stream.listen((event) {
+      print("Hello event  $event");
       _showNotification();
     });
   }
@@ -223,7 +227,8 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void setupBeacon() {
+  void setupBeacon() async{
+    await KontaktBeacon.shared.scanning();
     Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '586f47707a77');
     startBeaconMonitoring(beaconI);
   }
@@ -245,4 +250,5 @@ class PaddedRaisedButton extends StatelessWidget {
       child: RaisedButton(child: Text(buttonText), onPressed: onPressed),
     );
   }
+
 }
