@@ -1,11 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'dart:async';
+import 'package:kontakt_beacon/Helper/beacon.dart';
 import 'package:kontakt_beacon/kontakt_beacon.dart';
 import 'package:kontakt_beacon_example/second_screen.dart';
 import 'package:location/location.dart';
-import 'package:kontakt_beacon/Helper/beacon.dart';
 import 'package:rxdart/rxdart.dart';
 
 final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject = BehaviorSubject<ReceivedNotification>();
@@ -45,11 +46,11 @@ void main() async {
       initializationSettingsAndroid, initializationSettingsIOS);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onSelectNotification: (String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    selectNotificationSubject.add(payload);
-  });
+        if (payload != null) {
+          debugPrint('notification payload: ' + payload);
+        }
+        selectNotificationSubject.add(payload);
+      });
   runApp(MyApp());
 }
 
@@ -67,17 +68,12 @@ class _MyAppState extends State<MyApp> {
   LocationData _locationData;
   String info = '';
   String version = "";
+
   @override
   void initState() {
     super.initState();
     _setupLocation();
     setupEventListener();
-    KontaktBeacon.shared.platformVersion.then((value) {
-      print("value ${value}");
-      setState(() {
-        version = value;
-      });
-    });
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _requestIOSPermissions();
       _configureDidReceiveLocalNotificationSubject();
@@ -88,12 +84,12 @@ class _MyAppState extends State<MyApp> {
   void _requestIOSPermissions() {
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
+        IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
+      alert: true,
+      badge: true,
+      sound: true,
+    );
   }
 
   void _configureDidReceiveLocalNotificationSubject() {
@@ -158,20 +154,18 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              Text("Version $version"),
-              StreamBuilder<String>(
-                stream: KontaktBeacon.shared.testEvent.stream,
-                builder: (context, snapshot) {
-                  return Center(
-                    child: Text(snapshot.data != null ? snapshot.data : 'damn'),
-                  );
-                }
-              ),
-            ],
-          ),
+        body: Column(
+          children: <Widget>[
+            Text("data"),
+            StreamBuilder<String>(
+              stream: KontaktBeacon.shared.testEvent.stream,
+              builder: (context, snapshot) {
+                return Center(
+                  child: Text(snapshot.data != null ? snapshot.data : ''),
+                );
+              }
+            ),
+          ],
         ),
       ),
     );
@@ -221,6 +215,7 @@ class _MyAppState extends State<MyApp> {
 
   void startBeaconMonitoring(Beacon beacon) async {
     try {
+      print("monitoring ${await KontaktBeacon.shared.startEddystoneMonitoring(beacon)}");
       await KontaktBeacon.shared.startEddystoneMonitoring(beacon);
     } catch (e) {
       print('StartEddystoneMonitoring exception: ${e.toString()}');
@@ -229,7 +224,7 @@ class _MyAppState extends State<MyApp> {
 
   void setupBeacon() async{
     await KontaktBeacon.shared.scanning();
-    Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '586f47707a77');
+    Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '6b4761767466');
     startBeaconMonitoring(beaconI);
   }
 }
@@ -250,5 +245,4 @@ class PaddedRaisedButton extends StatelessWidget {
       child: RaisedButton(child: Text(buttonText), onPressed: onPressed),
     );
   }
-
 }

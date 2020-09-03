@@ -14,8 +14,7 @@ class KontaktBeacon {
   // MARK: Setup StreamListener from native platform's event
   void setupEventListener() {
     try {
-      _eventChannel
-          .receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
+      _eventChannel.receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
         testEvent.add(event.toString());
       }, onError: (dynamic error) {
         testEvent.add(error.message);
@@ -29,6 +28,10 @@ class KontaktBeacon {
 
   Future<void> scanning() async{
     await invokeMethod(PlatformMethodName.startScanningBeacon);
+  }
+
+  Future<void> stopScanning() async{
+    await invokeMethod(PlatformMethodName.stopScanningBeacon);
   }
   Future<void> clearAllTargetedEddyStones() async {
     invokeMethod(PlatformMethodName.clearAllTargetedEddyStones);
@@ -67,8 +70,4 @@ class KontaktBeacon {
     }
   }
 
-  Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
 }
