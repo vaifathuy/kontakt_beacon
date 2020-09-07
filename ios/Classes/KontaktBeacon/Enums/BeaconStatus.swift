@@ -11,6 +11,7 @@ enum BeaconStatus: String{
     case didDiscover = "didMonitor"
     case didFail = "didFailMonitoring"
     case didUpdate = "didEnter"
+    case didExit = "didExit"
     case unknown
     
     var description: String {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -223,9 +224,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void setupBeacon() async{
-    await KontaktBeacon.shared.scanning();
-    Beacon beaconI = Beacon('f7826da6bc5b71e0893e', '6b4761767466');
+    if(Platform.isAndroid) {
+      await KontaktBeacon.shared.scanning();
+    }
+//    await KontaktBeacon.shared.scanning();
+    Beacon beaconI = Beacon('fdu1', 'f7826da6bc5b71e0893e', '6b4761767466');
+    Beacon beaconII = Beacon('JpWD', 'f7826da6bc5b71e0893e', '566761644865');
     startBeaconMonitoring(beaconI);
+    startBeaconMonitoring(beaconII);
   }
 }
 

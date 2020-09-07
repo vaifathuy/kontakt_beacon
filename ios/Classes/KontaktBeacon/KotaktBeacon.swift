@@ -10,13 +10,16 @@ import Foundation
 import Flutter
 import KontaktSDK
 
+private let kDeviceFactoryName = "Kontakt"
+
 class KontaktBeacon: NSObject{
     static var instance: KontaktBeacon = KontaktBeacon()
     fileprivate var eddyStoneManager: KTKEddystoneManager!
-    fileprivate var beacons = [KTKEddystoneRegion]()
+    fileprivate var deviceManager: KTKDevicesManager!
+    fileprivate var beacons = [KontaktEddystoneRegion]()
     
     // MARK: Properties:
-    var targetBeacons: [KTKEddystoneRegion] {
+    var targetBeacons: [KontaktEddystoneRegion] {
         return beacons
     }
     
@@ -24,6 +27,8 @@ class KontaktBeacon: NSObject{
     var eddyStoneDidFailToStart: ((_ manager: KTKEddystoneManager, _ error: Error?) -> Void)!
     var eddyStoneDidDiscover: ((_ manager: KTKEddystoneManager, _ eddystones: Set<KTKEddystone>, _ region: KTKEddystoneRegion?) -> Void)!
     var eddyStoneDidUpdate: ((_ manager: KTKEddystoneManager, _ eddystone: KTKEddystone, _ frameType: KTKEddystoneFrameType) -> Void)!
+    var eddyStoneDidLost: ((_ eddystones: [KontaktEddystoneRegion]) -> Void)!
+    var deviceManagerDidFailToDiscover: ((_ manager: KTKDevicesManager, _ error: Error) -> Void)!
     
     // Constructor
     override init() {
@@ -32,14 +37,16 @@ class KontaktBeacon: NSObject{
     }
     
     fileprivate func setupBeaconManager(){
+        deviceManager = KTKDevicesManager(delegate: self)
         eddyStoneManager = KTKEddystoneManager(delegate: self)
+        startScanningBeaconDevices()
     }
 }
 
 // Helper functions
 extension KontaktBeacon {
     /// - Parameter beaconRegion: region to start monitoring
-    func startMonitoringEddyStone(for beaconRegion: KTKEddystoneRegion? = nil){
+    func startMonitoringEddyStone(for beaconRegion: KontaktEddystoneRegion? = nil){
         eddyStoneManager.startEddystoneDiscovery(in: beaconRegion)
         guard beaconRegion != nil else { return }
         if beacons.first(where: { $0 == beaconRegion! }) == nil {
@@ -54,6 +61,16 @@ extension KontaktBeacon {
     
     func stopMonitoringAllEddyStone() {
         eddyStoneManager.stopEddystoneDiscoveryInAllRegions()
+    }
+    
+    /// - Parameter timeInterval: interval in second to discovery eddystone devices; default value is 3 seconds
+    func startScanningBeaconDevices(timeInterval: Double = 3.0){
+        deviceManager.discoveryMode = .interval
+        deviceManager.startDevicesDiscovery(withInterval: timeInterval)
+    }
+    
+    func stopScanningBeaconDevices(){
+        deviceManager.stopDevicesDiscovery()
     }
     
     @discardableResult
@@ -86,5 +103,36 @@ extension KontaktBeacon: KTKEddystoneManagerDelegate {
     
     func eddystoneManager(_ manager: KTKEddystoneManager, didUpdate eddystone: KTKEddystone, with frameType: KTKEddystoneFrameType) {
         eddyStoneDidUpdate(manager, eddystone, frameType)
+    }
+}
+
+extension KontaktBeacon: KTKDevicesManagerDelegate {
+    func devicesManager(_ manager: KTKDevicesManager, didDiscover devices: [KTKNearbyDevice]) {
+        
+        var lostEddystones: [KontaktEddystoneRegion] = []
+        
+        devices.filter({ $0.name == kDeviceFactoryName }).forEach({
+            print("Nearby devices: \($0.uniqueID!)")
+        })
+        
+        targetBeacons.forEach { (eddystone) in
+            if devices.filter({ $0.name == kDeviceFactoryName }).contains(where: { $0.uniqueID == eddystone.uniqueID }) {
+                if let index = lostEddystones.firstIndex(where: { $0.uniqueID == eddystone.uniqueID }){
+                    lostEddystones.remove(at: index)
+                }
+            }else {
+                // lost; currently can't be detected
+                if !lostEddystones.contains(eddystone) {
+                    lostEddystones.append(eddystone)
+                }
+            }
+        }
+        
+        guard lostEddystones.count > 0 else { return }
+        eddyStoneDidLost(lostEddystones)
+    }
+    
+    func devicesManagerDidFail(toStartDiscovery manager: KTKDevicesManager, withError error: Error) {
+        deviceManagerDidFailToDiscover(manager, error)
     }
 }

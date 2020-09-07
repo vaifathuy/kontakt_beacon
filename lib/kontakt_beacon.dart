@@ -47,6 +47,7 @@ class KontaktBeacon {
 
   Future<void> stopEddystoneMonitoring(Beacon beacon) async {
     await invokeMethod(PlatformMethodName.stopMonitoringBeacon, <String, String>{
+      'uniqueID': beacon.uniqueID,
       'nameSpaceID': beacon.nameSpaceID,
       'instanceID': beacon.instanceID
     });
@@ -54,6 +55,7 @@ class KontaktBeacon {
 
   Future<Map> startEddystoneMonitoring(Beacon beacon) async {
     return await invokeMethod(PlatformMethodName.startMonitoringBeacon, <String, String>{
+      'uniqueID': beacon.uniqueID,
       'nameSpaceID': beacon.nameSpaceID,
       'instanceID': beacon.instanceID
     });
