@@ -215,7 +215,6 @@ class _MyAppState extends State<MyApp> {
 
   void startBeaconMonitoring(Beacon beacon) async {
     try {
-      print("monitoring ${await KontaktBeacon.shared.startEddystoneMonitoring(beacon)}");
       await KontaktBeacon.shared.startEddystoneMonitoring(beacon);
     } catch (e) {
       print('StartEddystoneMonitoring exception: ${e.toString()}');

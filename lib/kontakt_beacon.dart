@@ -23,6 +23,7 @@ class KontaktBeacon {
       });
     } on PlatformException catch (e) {
       throw FlutterError(e.message);
+    } catch(e) {
     }
   }
 
@@ -52,8 +53,8 @@ class KontaktBeacon {
     });
   }
 
-  Future<Map> startEddystoneMonitoring(Beacon beacon) async {
-    return await invokeMethod(PlatformMethodName.startMonitoringBeacon, <String, String>{
+  Future<void> startEddystoneMonitoring(Beacon beacon) async {
+    await invokeMethod(PlatformMethodName.startMonitoringBeacon, <String, String>{
       'nameSpaceID': beacon.nameSpaceID,
       'instanceID': beacon.instanceID
     });
