@@ -23,16 +23,18 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
             switch methodName {
             case .startMonitoringBeacon:
                 guard let arguments = methodCall.arguments as? [String: String] else { return }
+                let uniqueID = arguments["uniqueID"]!
                 let nameSpaceID = arguments["nameSpaceID"]!
                 let instanceID = arguments["instanceID"]!
-                let eddyStoneRegion = KTKEddystoneRegion(namespaceID: nameSpaceID, instanceID: instanceID)
+                let eddyStoneRegion = KontaktEddystoneRegion(uniqueID: uniqueID, namespaceID: nameSpaceID, instanceID: instanceID)
                 KontaktBeacon.instance.startMonitoringEddyStone(for: eddyStoneRegion)
                 break
             case .stopMonitoringBeacon:
                 guard let arguments = methodCall.arguments as? [String: String] else { return }
+                let uniqueID = arguments["uniqueID"]!
                 let nameSpaceID = arguments["nameSpaceID"]!
                 let instanceID = arguments["instanceID"]!
-                let eddyStoneRegion = KTKEddystoneRegion(namespaceID: nameSpaceID, instanceID: instanceID)
+                let eddyStoneRegion = KontaktEddystoneRegion(uniqueID: uniqueID, namespaceID: nameSpaceID, instanceID: instanceID)
                 KontaktBeacon.instance.stopMonitoringEddyStone(for: eddyStoneRegion)
             case .stopMonitoringAllEddyStone:
                 KontaktBeacon.instance.stopMonitoringAllEddyStone()
@@ -42,6 +44,10 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
             case .clearAllTargetedEddyStones:
                 let status = KontaktBeacon.instance.clearAllTargetedEddyStones()
                 result(status)
+            case .startScanningBeacon:
+                KontaktBeacon.instance.startScanningBeaconDevices()
+            case .stopScanningBeacon:
+                KontaktBeacon.instance.stopScanningBeaconDevices()
             default: result(FlutterMethodNotImplemented)
             }
         }
@@ -70,14 +76,6 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
             channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: beaconResponse))
         }
         
-        KontaktBeacon.instance.eddyStoneDidFailToStart = { (manager, error) in
-            deviceInfo.clear()
-            flutterBeacon.clear()
-            flutterBeacon.set(status: BeaconStatus.didFail.rawValue)
-            let beaconResponse = FlutterBeaconResponse(beacon: flutterBeacon)
-            channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: beaconResponse))
-        }
-        
         KontaktBeacon.instance.eddyStoneDidUpdate = { (manager, eddystone, frameTypes) in
             deviceInfo.clear()
             flutterBeacon.clear()
@@ -90,5 +88,18 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
             let beaconResponse = FlutterBeaconResponse(beacon: flutterBeacon)
             channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: beaconResponse))
         }
+        
+        KontaktBeacon.instance.eddyStoneDidLost = { (lostDevices) in
+            deviceInfo.clear()
+            flutterBeacon.clear()
+            lostDevices.forEach { (lostEddystone) in
+                deviceInfo.set(timestamp: Date().timeIntervalSince1970)
+                flutterBeacon.set(namespaceID: lostEddystone.namespaceID, instanceID: lostEddystone.instanceID, uniqueID: lostEddystone.uniqueID, status: BeaconStatus.didExit.rawValue, deviceInfo: deviceInfo)
+                let beaconResponse = FlutterBeaconResponse(beacon: flutterBeacon)
+                channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: beaconResponse))
+            }
+        }
+        
+        KontaktBeacon.instance.deviceManagerDidFailToDiscover = { (manager, error) in }
     }
 }
