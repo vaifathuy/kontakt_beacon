@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba02fa0b-ace6-44a3-bd66-a948da56660d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/lyheang.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kontakt_beacon.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kontakt_beacon.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/EddystoneBroadCastListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/EddystoneBroadCastListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/KontaktBeaconMethodHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/KontaktBeaconMethodHandler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/kontakt_beacon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/kontakt_beacon.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +21,9 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="kontakt_beacon" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -79,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596609803693</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add enum startscanningbeacon in kontakt_beacon.dart">
+      <created>1600138796778</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1600138796786</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -98,30 +115,38 @@
       <screen x="37" y="23" width="1243" height="777" />
     </state>
     <state x="441" y="177" key="AndroidProcessChooserDialog/37.23.1243.777@37.23.1243.777" timestamp="1596598499668" />
-    <state x="277" y="23" width="802" height="777" key="CommitChangelistDialog2" timestamp="1600138379583">
+    <state x="277" y="23" width="802" height="777" key="CommitChangelistDialog2" timestamp="1600138796539">
       <screen x="37" y="23" width="1243" height="777" />
     </state>
-    <state x="277" y="23" width="802" height="777" key="CommitChangelistDialog2/37.23.1243.777@37.23.1243.777" timestamp="1600138379583" />
-    <state width="1201" height="372" key="GridCell.Tab.0.bottom" timestamp="1596617537447">
+    <state x="277" y="23" width="802" height="777" key="CommitChangelistDialog2/37.23.1243.777@37.23.1243.777" timestamp="1600138796539" />
+    <state width="1201" height="372" key="GridCell.Tab.0.bottom" timestamp="1600156755574">
       <screen x="37" y="23" width="1243" height="777" />
     </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.bottom/37.23.1243.777@37.23.1243.777" timestamp="1596617537447" />
+    <state width="1201" height="372" key="GridCell.Tab.0.bottom/37.23.1243.777@37.23.1243.777" timestamp="1600156755574" />
     <state width="1960" height="223" key="GridCell.Tab.0.bottom/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829484" />
-    <state width="1201" height="372" key="GridCell.Tab.0.center" timestamp="1596617537433">
+    <state width="1201" height="372" key="GridCell.Tab.0.center" timestamp="1600156755573">
       <screen x="37" y="23" width="1243" height="777" />
     </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.center/37.23.1243.777@37.23.1243.777" timestamp="1596617537433" />
+    <state width="1201" height="372" key="GridCell.Tab.0.center/37.23.1243.777@37.23.1243.777" timestamp="1600156755573" />
     <state width="1960" height="223" key="GridCell.Tab.0.center/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829483" />
-    <state width="1201" height="372" key="GridCell.Tab.0.left" timestamp="1596617537429">
+    <state width="1201" height="372" key="GridCell.Tab.0.left" timestamp="1600156755571">
       <screen x="37" y="23" width="1243" height="777" />
     </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.left/37.23.1243.777@37.23.1243.777" timestamp="1596617537429" />
+    <state width="1201" height="372" key="GridCell.Tab.0.left/37.23.1243.777@37.23.1243.777" timestamp="1600156755571" />
     <state width="1960" height="223" key="GridCell.Tab.0.left/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829482" />
-    <state width="1201" height="372" key="GridCell.Tab.0.right" timestamp="1596617537444">
+    <state width="1201" height="372" key="GridCell.Tab.0.right" timestamp="1600156755573">
       <screen x="37" y="23" width="1243" height="777" />
     </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.right/37.23.1243.777@37.23.1243.777" timestamp="1596617537444" />
+    <state width="1201" height="372" key="GridCell.Tab.0.right/37.23.1243.777@37.23.1243.777" timestamp="1600156755573" />
     <state width="1960" height="223" key="GridCell.Tab.0.right/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829483" />
+    <state x="162" y="90" key="MergeDialog" timestamp="1600139608381">
+      <screen x="37" y="23" width="1243" height="777" />
+    </state>
+    <state x="162" y="90" key="MergeDialog/37.23.1243.777@37.23.1243.777" timestamp="1600139608381" />
+    <state x="369" y="134" key="MultipleFileMergeDialog" timestamp="1600139608410">
+      <screen x="37" y="23" width="1243" height="777" />
+    </state>
+    <state x="369" y="134" key="MultipleFileMergeDialog/37.23.1243.777@37.23.1243.777" timestamp="1600139608410" />
     <state x="126" y="44" key="SettingsEditor" timestamp="1596597427165">
       <screen x="37" y="23" width="1243" height="777" />
     </state>
@@ -134,5 +159,9 @@
       <screen x="37" y="23" width="1243" height="777" />
     </state>
     <state x="119" y="123" width="1043" height="577" key="com.intellij.history.integration.ui.views.FileHistoryDialog/37.23.1243.777@37.23.1243.777" timestamp="1596615808628" />
+    <state x="280" y="209" key="git4idea.merge.GitPullDialog" timestamp="1600138804692">
+      <screen x="37" y="23" width="1243" height="777" />
+    </state>
+    <state x="280" y="209" key="git4idea.merge.GitPullDialog/37.23.1243.777@37.23.1243.777" timestamp="1600138804692" />
   </component>
 </project>

@@ -1,6 +1,7 @@
 package planb.vaifat.kontakt_beacon
 
 import android.os.Build
+import com.kontakt.sdk.android.ble.device.EddystoneNamespace
 import com.kontakt.sdk.android.ble.manager.ProximityManager
 import com.kontakt.sdk.android.ble.manager.listeners.EddystoneListener
 import com.kontakt.sdk.android.common.profile.IEddystoneNamespace
@@ -22,14 +23,15 @@ class KontaktBeaconMethodHandler(private var proximityManager: ProximityManager,
 
             "startMonitoringBeacon" -> {
                 val eddyStones: ArrayList<BeaconEddystone> = ArrayList()
+
+                val uniqueId: String  = call.argument<String>("uniqueID").toString()
                 val nameSpaceID: String = call.argument<String>("nameSpaceID").toString()
                 val instanceID: String = call.argument<String>("instanceID").toString()
                 if (nameSpaceID.isNotEmpty() && instanceID.isNotEmpty()) {
                     result.success("instance id $instanceID namespace $nameSpaceID")
-                    eddyStones.add(BeaconEddystone(identifier = "", nameSpaceId = nameSpaceID, instanceId = instanceID))
+                    eddyStones.add(BeaconEddystone(identifier = uniqueId, nameSpaceId = nameSpaceID, instanceId = instanceID))
                     initProximityManagerListener(eddyStones = eddyStones)
                 }
-
             }
 
             "stopScanningBeacon" -> {
@@ -55,6 +57,14 @@ class KontaktBeaconMethodHandler(private var proximityManager: ProximityManager,
     }
 
     private fun initProximityManagerListener(eddyStones: ArrayList<BeaconEddystone>) {
+        eddyStones.forEach { item ->
+            val namespace: IEddystoneNamespace = EddystoneNamespace.Builder()
+                    .identifier(item.identifier)
+                    .namespace(item.nameSpaceId)
+                    .instanceId(item.instanceId)
+                    .build()
+            eddyStoneNamespaces.add(namespace)
+        }
         proximityManager.apply {
             spaces().eddystoneNamespaces(eddyStoneNamespaces)
             setEddystoneListener(eddystoneListener)

@@ -11,19 +11,21 @@ class KontaktBeacon {
   EventChannel _eventChannel = EventChannel('vaifat.planb.kontakt_beacon/eventChannel');
   StreamController<String> testEvent = StreamController.broadcast();
 
-  // MARK: Setup StreamListener from native platform's event
   void setupEventListener() {
     try {
       _eventChannel.receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
         testEvent.add(event.toString());
       }, onError: (dynamic error) {
         testEvent.add(error.message);
+        print("onError errro ${error.message}");
       }, onDone: () {
         testEvent.add('onDone');
       });
     } on PlatformException catch (e) {
+      print("PlatformException error ${e.message}");
       throw FlutterError(e.message);
     } catch(e) {
+      print("error event listener ${e}");
     }
   }
 
@@ -54,7 +56,7 @@ class KontaktBeacon {
     });
   }
 
-  Future<Map> startEddystoneMonitoring(Beacon beacon) async {
+  Future<dynamic> startEddystoneMonitoring(Beacon beacon) async {
     return await invokeMethod(PlatformMethodName.startMonitoringBeacon, <String, String>{
       'uniqueID': beacon.uniqueID,
       'nameSpaceID': beacon.nameSpaceID,

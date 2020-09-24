@@ -209,7 +209,7 @@ class _MyAppState extends State<MyApp> {
 
   void setupEventListener(){
     KontaktBeacon.shared.testEvent.stream.listen((event) {
-      print("Hello event  $event");
+      print("event  $event");
       _showNotification();
     });
   }
@@ -226,11 +226,10 @@ class _MyAppState extends State<MyApp> {
     if(Platform.isAndroid) {
       await KontaktBeacon.shared.scanning();
     }
-//    await KontaktBeacon.shared.scanning();
     Beacon beaconI = Beacon('fdu1', 'f7826da6bc5b71e0893e', '6b4761767466');
-    Beacon beaconII = Beacon('JpWD', 'f7826da6bc5b71e0893e', '566761644865');
+//    Beacon beaconII = Beacon('JpWD', 'f7826da6bc5b71e0893e', '566761644865');
     startBeaconMonitoring(beaconI);
-    startBeaconMonitoring(beaconII);
+//    startBeaconMonitoring(beaconII);
   }
 }
 
