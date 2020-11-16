@@ -29,7 +29,6 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
 
     override fun onEddystoneDiscovered(eddystone: IEddystoneDevice?, namespace: IEddystoneNamespace?) {
         if(eddystone?.instanceId.equals(namespace?.instanceId)) {
-            println("Beacon on Eddystone Discovered")
             beaconResponse = BeaconResponse(
                     namespace_id = eddystone?.namespace,
                     instance_id = eddystone?.instanceId,
@@ -51,7 +50,6 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
     }
 
     override fun onEddystonesUpdated(eddystones: MutableList<IEddystoneDevice>?, namespace: IEddystoneNamespace?) {
-        println("Beacon on Eddystones Updated")
         eddystones?.filter { i -> i.instanceId == namespace?.instanceId }
         eddystones?.forEach { item ->
             beaconResponse = BeaconResponse(
@@ -76,7 +74,6 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
     }
 
     override fun onEddystoneLost(eddystone: IEddystoneDevice?, namespace: IEddystoneNamespace?) {
-        println("Beacon on Eddystone Lost")
         if(eddystone?.namespace == namespace?.namespace) {
             beaconResponse = BeaconResponse(
                     namespace_id = eddystone?.namespace,

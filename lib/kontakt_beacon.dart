@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -14,18 +16,25 @@ class KontaktBeacon {
   void setupEventListener() {
     try {
       _eventChannel.receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
-        testEvent.add(event.toString());
+        Welcome welcome = KontaktBeacon.shared.welcomeFromJson(event);
+        if(Platform.isAndroid) {
+          if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
+            testEvent.add(event.toString());
+          } else {
+            testEvent.add("");
+          }
+        } else {
+          testEvent.add(event.toString());
+        }
       }, onError: (dynamic error) {
         testEvent.add(error.message);
-        print("onError errro ${error.message}");
       }, onDone: () {
         testEvent.add('onDone');
       });
     } on PlatformException catch (e) {
-      print("PlatformException error ${e.message}");
       throw FlutterError(e.message);
     } catch(e) {
-      print("error event listener ${e}");
+
     }
   }
 
@@ -75,4 +84,90 @@ class KontaktBeacon {
     }
   }
 
+  Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+  String welcomeToJson(Welcome data) => json.encode(data.toJson());
+  
+}
+
+class Welcome {
+  BeaconEvent beaconEvent;
+  Welcome({
+    this.beaconEvent
+  });
+
+  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+    beaconEvent: BeaconEvent.fromJson(json["beacon"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "beacon": beaconEvent.toJson(),
+  };
+}
+
+class BeaconEvent {
+  BeaconEvent({
+    this.deviceInfo,
+    this.instanceId,
+    this.namespaceId,
+    this.status,
+    this.uniqueId,
+  });
+
+  DeviceInfo deviceInfo;
+  String instanceId;
+  String namespaceId;
+  String status;
+  String uniqueId;
+
+  factory BeaconEvent.fromJson(Map<String, dynamic> json) => BeaconEvent(
+    deviceInfo: DeviceInfo.fromJson(json["device_info"]),
+    instanceId: json["instance_id"],
+    namespaceId: json["namespace_id"],
+    status: json["status"],
+    uniqueId: json["unique_id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "device_info": deviceInfo.toJson(),
+    "instance_id": instanceId,
+    "namespace_id": namespaceId,
+    "status": status,
+    "unique_id": uniqueId,
+  };
+}
+
+class DeviceInfo {
+  DeviceInfo({
+    this.batteryPower,
+    this.distance,
+    this.proximity,
+    this.rssi,
+    this.timestamp,
+    this.txPower,
+  });
+
+  dynamic batteryPower;
+  dynamic distance;
+  dynamic proximity;
+  dynamic rssi;
+  dynamic timestamp;
+  dynamic txPower;
+
+  factory DeviceInfo.fromJson(Map<String, dynamic> json) => DeviceInfo(
+    batteryPower: json["battery_power"],
+    distance: json["distance"].toDouble(),
+    proximity: json["proximity"],
+    rssi: json["rssi"],
+    timestamp: json["timestamp"],
+    txPower: json["txPower"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "battery_power": batteryPower,
+    "distance": distance,
+    "proximity": proximity,
+    "rssi": rssi,
+    "timestamp": timestamp,
+    "txPower": txPower,
+  };
 }
