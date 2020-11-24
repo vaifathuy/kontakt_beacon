@@ -20,8 +20,6 @@ class KontaktBeacon {
         if(Platform.isAndroid) {
           if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
             testEvent.add(event.toString());
-          } else {
-            testEvent.add("");
           }
         } else {
           testEvent.add(event.toString());
