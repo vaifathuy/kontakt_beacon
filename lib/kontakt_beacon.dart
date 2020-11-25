@@ -17,17 +17,27 @@ class KontaktBeacon {
     try {
       _eventChannel.receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
         Welcome welcome = KontaktBeacon.shared.welcomeFromJson(event);
-        if(Platform.isAndroid) {
-          if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
-            testEvent.add(event.toString());
-          }
-        } else {
+        print("event ${welcome.toJson()}");
+        if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
           testEvent.add(event.toString());
+        } else {
+          testEvent.add("");
         }
+        // if(Platform.isAndroid) {
+        //   if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
+        //     testEvent.add(event.toString());
+        //   }
+        // } else {
+        //   testEvent.add(event.toString());
+        // }
       }, onError: (dynamic error) {
-        testEvent.add(error.message);
+        // testEvent.add(error.message);
+        print("error $error");
+
       }, onDone: () {
-        testEvent.add('onDone');
+        // testEvent.add('onDone');
+        print("on done");
+
       });
     } on PlatformException catch (e) {
       throw FlutterError(e.message);
