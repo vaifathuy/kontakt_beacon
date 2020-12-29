@@ -17,7 +17,6 @@ class KontaktBeacon {
     try {
       _eventChannel.receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
         Welcome welcome = KontaktBeacon.shared.welcomeFromJson(event);
-        print("event ${welcome.toJson()}");
         if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
           testEvent.add(event.toString());
         } else {
@@ -30,6 +29,7 @@ class KontaktBeacon {
         // } else {
         //   testEvent.add(event.toString());
         // }
+
       }, onError: (dynamic error) {
         // testEvent.add(error.message);
         print("error $error");
