@@ -5,27 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba02fa0b-ace6-44a3-bd66-a948da56660d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/lib/flutter.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/example_lib_main_dart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/KontaktBeaconMethodHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/KontaktBeaconMethodHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/KontaktBeaconPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/planb/vaifat/kontakt_beacon/KontaktBeaconPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/kontakt_beacon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/kontakt_beacon.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/KotaktBeacon.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/KontaktBeacon/KotaktBeacon.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +34,9 @@
   <component name="ProjectId" id="1fQusIIKU4JswHXnkElhTexRAeL" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -117,49 +105,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="Add enum startscanningbeacon in kontakt_beacon.dart" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="89" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596597411913">
-      <screen x="37" y="23" width="1243" height="777" />
+    <state x="533" y="193" key="SettingsEditor" timestamp="1609898863923">
+      <screen x="0" y="25" width="2048" height="1064" />
     </state>
-    <state x="89" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/37.23.1243.777@37.23.1243.777" timestamp="1596597411913" />
-    <state x="441" y="177" key="AndroidProcessChooserDialog" timestamp="1596598499668">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state x="441" y="177" key="AndroidProcessChooserDialog/37.23.1243.777@37.23.1243.777" timestamp="1596598499668" />
-    <state x="277" y="23" width="802" height="777" key="CommitChangelistDialog2" timestamp="1596609803095">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state x="277" y="23" width="802" height="777" key="CommitChangelistDialog2/37.23.1243.777@37.23.1243.777" timestamp="1596609803095" />
-    <state width="1201" height="372" key="GridCell.Tab.0.bottom" timestamp="1596617537447">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.bottom/37.23.1243.777@37.23.1243.777" timestamp="1596617537447" />
-    <state width="1960" height="223" key="GridCell.Tab.0.bottom/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829484" />
-    <state width="1201" height="372" key="GridCell.Tab.0.center" timestamp="1596617537433">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.center/37.23.1243.777@37.23.1243.777" timestamp="1596617537433" />
-    <state width="1960" height="223" key="GridCell.Tab.0.center/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829483" />
-    <state width="1201" height="372" key="GridCell.Tab.0.left" timestamp="1596617537429">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.left/37.23.1243.777@37.23.1243.777" timestamp="1596617537429" />
-    <state width="1960" height="223" key="GridCell.Tab.0.left/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829482" />
-    <state width="1201" height="372" key="GridCell.Tab.0.right" timestamp="1596617537444">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state width="1201" height="372" key="GridCell.Tab.0.right/37.23.1243.777@37.23.1243.777" timestamp="1596617537444" />
-    <state width="1960" height="223" key="GridCell.Tab.0.right/46.23.2002.1129@46.23.2002.1129" timestamp="1596447829483" />
-    <state x="126" y="44" key="SettingsEditor" timestamp="1596597427165">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state x="126" y="44" key="SettingsEditor/37.23.1243.777@37.23.1243.777" timestamp="1596597427165" />
-    <state x="258" y="151" key="Vcs.Push.Dialog.v2" timestamp="1596609812267">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state x="258" y="151" key="Vcs.Push.Dialog.v2/37.23.1243.777@37.23.1243.777" timestamp="1596609812267" />
-    <state x="119" y="123" width="1043" height="577" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596615808628">
-      <screen x="37" y="23" width="1243" height="777" />
-    </state>
-    <state x="119" y="123" width="1043" height="577" key="com.intellij.history.integration.ui.views.FileHistoryDialog/37.23.1243.777@37.23.1243.777" timestamp="1596615808628" />
+    <state x="533" y="193" key="SettingsEditor/0.25.2048.1064@0.25.2048.1064" timestamp="1609898863923" />
   </component>
 </project>
