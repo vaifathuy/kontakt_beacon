@@ -17,6 +17,7 @@ class KontaktBeacon: NSObject{
     fileprivate var eddyStoneManager: KTKEddystoneManager!
     fileprivate var deviceManager: KTKDevicesManager!
     fileprivate var beacons = [KontaktEddystoneRegion]()
+    fileprivate var lostEddystones: [KontaktEddystoneRegion] = []
     
     // MARK: Properties:
     var targetBeacons: [KontaktEddystoneRegion] {
@@ -108,8 +109,6 @@ extension KontaktBeacon: KTKEddystoneManagerDelegate {
 
 extension KontaktBeacon: KTKDevicesManagerDelegate {
     func devicesManager(_ manager: KTKDevicesManager, didDiscover devices: [KTKNearbyDevice]) {
-        
-        var lostEddystones: [KontaktEddystoneRegion] = []
         
         devices.filter({ $0.name == kDeviceFactoryName }).forEach({
             print("Nearby devices: \($0.uniqueID!)")
