@@ -209,7 +209,6 @@ class _MyAppState extends State<MyApp> {
 
   void setupEventListener(){
     KontaktBeacon.shared.testEvent.stream.listen((event) {
-      print("event  $event");
       _showNotification();
     });
   }

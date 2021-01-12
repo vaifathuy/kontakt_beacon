@@ -8,36 +8,25 @@ import 'package:kontakt_beacon/Helper/beacon.dart';
 import 'package:kontakt_beacon/Helper/platform_method_name.dart';
 
 class KontaktBeacon {
+
+  Timer shouldRefreshKontaktTimer;
   static KontaktBeacon shared = KontaktBeacon();
   MethodChannel _channel = MethodChannel('vaifat.planb.kontakt_beacon/methodChannel');
   EventChannel _eventChannel = EventChannel('vaifat.planb.kontakt_beacon/eventChannel');
   StreamController<String> testEvent = StreamController.broadcast();
 
   void setupEventListener() {
+
     try {
       _eventChannel.receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
-        Welcome welcome = KontaktBeacon.shared.welcomeFromJson(event);
-        if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
-          testEvent.add(event.toString());
-        } else {
-          testEvent.add("");
-        }
-        // if(Platform.isAndroid) {
-        //   if(welcome.beaconEvent.status == "didMonitor" || welcome.beaconEvent.status == "didEnter") {
-        //     testEvent.add(event.toString());
-        //   }
-        // } else {
-        //   testEvent.add(event.toString());
-        // }
-
+        BeaconResponse beaconResponse = KontaktBeacon.shared.welcomeFromJson(event);
+        testEvent.add(event.toString());
       }, onError: (dynamic error) {
         // testEvent.add(error.message);
         print("error $error");
-
       }, onDone: () {
         // testEvent.add('onDone');
         print("on done");
-
       });
     } on PlatformException catch (e) {
       throw FlutterError(e.message);
@@ -92,18 +81,18 @@ class KontaktBeacon {
     }
   }
 
-  Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
-  String welcomeToJson(Welcome data) => json.encode(data.toJson());
+  BeaconResponse welcomeFromJson(String str) => BeaconResponse.fromJson(json.decode(str));
+  String welcomeToJson(BeaconResponse data) => json.encode(data.toJson());
   
 }
 
-class Welcome {
+class BeaconResponse {
   BeaconEvent beaconEvent;
-  Welcome({
+  BeaconResponse({
     this.beaconEvent
   });
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory BeaconResponse.fromJson(Map<String, dynamic> json) => BeaconResponse(
     beaconEvent: BeaconEvent.fromJson(json["beacon"]),
   );
 
@@ -146,7 +135,7 @@ class BeaconEvent {
 
 class DeviceInfo {
   DeviceInfo({
-    this.batteryPower,
+    // this.batteryPower,
     this.distance,
     this.proximity,
     this.rssi,
@@ -154,7 +143,7 @@ class DeviceInfo {
     this.txPower,
   });
 
-  dynamic batteryPower;
+  // dynamic batteryPower;
   dynamic distance;
   dynamic proximity;
   dynamic rssi;
@@ -162,7 +151,7 @@ class DeviceInfo {
   dynamic txPower;
 
   factory DeviceInfo.fromJson(Map<String, dynamic> json) => DeviceInfo(
-    batteryPower: json["battery_power"],
+    // batteryPower: json["battery_power"],
     distance: json["distance"].toDouble(),
     proximity: json["proximity"],
     rssi: json["rssi"],
@@ -171,7 +160,7 @@ class DeviceInfo {
   );
 
   Map<String, dynamic> toJson() => {
-    "battery_power": batteryPower,
+    // "battery_power": batteryPower,
     "distance": distance,
     "proximity": proximity,
     "rssi": rssi,
