@@ -29,7 +29,7 @@ class FlutterBeacon: Codable {
         case deviceInfo = "device_info"
     }
 
-    init(namespaceID: String? = "", instanceID: String? = "", uniqueID: String? = "", status: String? = "", deviceInfo: DeviceInfo? = nil) {
+    init(namespaceID: String? = "", instanceID: String? = "", uniqueID: String? = "", status: String? = BeaconStatus.unknown.rawValue, deviceInfo: DeviceInfo? = nil) {
         self.namespaceID = namespaceID
         self.instanceID = instanceID
         self.uniqueID = uniqueID
@@ -94,3 +94,5 @@ class DeviceInfo: Codable {
         self.timestamp = 0
     }
 }
+
+typealias FlutterBeaconResponseList = [FlutterBeaconResponse]

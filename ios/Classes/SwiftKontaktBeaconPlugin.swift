@@ -54,15 +54,12 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
     }
     
     fileprivate static func setupKontaktBeacon(){
-        let deviceInfo = DeviceInfo()
-        let flutterBeacon = FlutterBeacon(deviceInfo: deviceInfo)
-        
         // EddyStone Callbacks
         KontaktBeacon.instance.eddyStoneDidDiscover = { (manager, eddyStones, region) in
-            deviceInfo.clear()
-            flutterBeacon.clear()
             if let region = region {
                 eddyStones.forEach({
+                    let deviceInfo = DeviceInfo()
+                    let flutterBeacon = FlutterBeacon(deviceInfo: deviceInfo)
                     if $0.eddystoneUID?.instanceID == region.instanceID {
                         let proximity = FlutterBeaconProximity(rawValue: $0.proximity.rawValue) ?? .unknown
                         deviceInfo.set(distance: $0.accuracy, rssi: $0.rssi.intValue, proximity: proximity.description, timestamp: $0.updatedAt)
@@ -70,15 +67,16 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
                         if let TLM = $0.eddystoneTLM { deviceInfo.set(batteryPower: TLM.batteryVoltage) }
                     }
                     flutterBeacon.set(namespaceID: region.namespaceID, instanceID: region.instanceID, status: BeaconStatus.didDiscover.rawValue, deviceInfo: deviceInfo)
+                    let beaconResponse = FlutterBeaconResponse(beacon: flutterBeacon)
+                    KontaktBeacon.instance.setCurrentBeaconsStatus(namespaceID: region.namespaceID!, response: beaconResponse)
                 })
             }
-            let beaconResponse = FlutterBeaconResponse(beacon: flutterBeacon)
-            channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: beaconResponse))
+            channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: KontaktBeacon.instance.getCurrentBeaconsStatus()))
         }
         
         KontaktBeacon.instance.eddyStoneDidUpdate = { (manager, eddystone, frameTypes) in
-            deviceInfo.clear()
-            flutterBeacon.clear()
+            let deviceInfo = DeviceInfo()
+            let flutterBeacon = FlutterBeacon(deviceInfo: deviceInfo)
             if let eddystoneTLM = eddystone.eddystoneTLM {
                 deviceInfo.set(batteryPower: eddystoneTLM.batteryVoltage)
             }
@@ -86,18 +84,21 @@ public class SwiftKontaktBeaconPlugin: NSObject, FlutterPlugin{
             deviceInfo.set(distance: eddystone.accuracy, rssi: eddystone.rssi.intValue, proximity: proximity.description, timestamp: eddystone.updatedAt)
             flutterBeacon.set(namespaceID: eddystone.eddystoneUID?.namespaceID, instanceID: eddystone.eddystoneUID?.instanceID, status: BeaconStatus.didUpdate.rawValue, deviceInfo: deviceInfo)
             let beaconResponse = FlutterBeaconResponse(beacon: flutterBeacon)
-            channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: beaconResponse))
+            KontaktBeacon.instance.setCurrentBeaconsStatus(namespaceID: eddystone.eddystoneUID!.namespaceID, response: beaconResponse)
+            channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: KontaktBeacon.instance.getCurrentBeaconsStatus()))
         }
         
         KontaktBeacon.instance.eddyStoneDidLost = { (lostDevices) in
-            deviceInfo.clear()
-            flutterBeacon.clear()
+            let deviceInfo = DeviceInfo()
+            let flutterBeacon = FlutterBeacon(deviceInfo: deviceInfo)
             lostDevices.forEach { (lostEddystone) in
                 deviceInfo.set(timestamp: Date().timeIntervalSince1970)
                 flutterBeacon.set(namespaceID: lostEddystone.namespaceID, instanceID: lostEddystone.instanceID, uniqueID: lostEddystone.uniqueID, status: BeaconStatus.didExit.rawValue, deviceInfo: deviceInfo)
                 let beaconResponse = FlutterBeaconResponse(beacon: flutterBeacon)
-                channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: beaconResponse))
+                KontaktBeacon.instance.currentBeaconsStatus[lostEddystone.namespaceID!] = beaconResponse
             }
+            let response: FlutterBeaconResponseList = KontaktBeacon.instance.currentBeaconsStatus.compactMap({ $0.value })
+            channelHandler.sendEventMessage(from: .beaconStatus, message: BeaconFlutterResult(values: response))
         }
         
         KontaktBeacon.instance.deviceManagerDidFailToDiscover = { (manager, error) in }
