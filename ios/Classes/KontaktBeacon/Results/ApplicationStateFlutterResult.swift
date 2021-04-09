@@ -8,10 +8,10 @@
 import Foundation
 
 class ApplicationStateFlutterResult: SwiftFlutterResult {
-    var values: FlutterBeaconResponse
+    var values: FlutterBeaconResponseList
     fileprivate var applicationState: UIApplication.State
 
-    init(state: UIApplication.State, values: FlutterBeaconResponse) {
+    init(state: UIApplication.State, values: FlutterBeaconResponseList) {
         self.applicationState = state
         self.values = values
     }

@@ -23,6 +23,7 @@ class KontaktBeacon: NSObject{
     var targetBeacons: [KontaktEddystoneRegion] {
         return beacons
     }
+    var currentBeaconsStatus: [String: FlutterBeaconResponse] = [:]
     
     // MARK: Closures:
     var eddyStoneDidFailToStart: ((_ manager: KTKEddystoneManager, _ error: Error?) -> Void)!
@@ -52,6 +53,8 @@ extension KontaktBeacon {
         guard beaconRegion != nil else { return }
         if beacons.first(where: { $0 == beaconRegion! }) == nil {
             beacons.append(beaconRegion!)
+            guard let namespaceID = beaconRegion?.namespaceID else { return }
+            currentBeaconsStatus[namespaceID] = FlutterBeaconResponse(beacon: .init())
         }
     }
     
@@ -72,6 +75,17 @@ extension KontaktBeacon {
     
     func stopScanningBeaconDevices(){
         deviceManager.stopDevicesDiscovery()
+    }
+    
+    @discardableResult
+    func setCurrentBeaconsStatus(namespaceID: String, response: FlutterBeaconResponse) -> FlutterBeaconResponseList{
+        currentBeaconsStatus[namespaceID] = response
+        return getCurrentBeaconsStatus()
+    }
+    
+    func getCurrentBeaconsStatus() -> FlutterBeaconResponseList{
+        let response: FlutterBeaconResponseList = KontaktBeacon.instance.currentBeaconsStatus.compactMap({ $0.value })
+        return response
     }
     
     @discardableResult

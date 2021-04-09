@@ -8,9 +8,9 @@
 import Foundation
 
 class BeaconFlutterResult: SwiftFlutterResult {
-    internal var values: FlutterBeaconResponse
+    internal var values: FlutterBeaconResponseList
 
-    init(values: FlutterBeaconResponse) {
+    init(values: FlutterBeaconResponseList) {
         self.values = values
     }
     func result() -> SwiftFlutterJSON {
