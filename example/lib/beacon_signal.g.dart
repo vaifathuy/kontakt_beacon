@@ -6,6 +6,21 @@ part of 'beacon_signal.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+BeaconResponse _$BeaconResponseFromJson(Map<String, dynamic> json) {
+  return BeaconResponse(
+    (json['beaconResponse'] as List)
+        ?.map((e) => e == null
+            ? null
+            : KontaktBeaconEvent.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$BeaconResponseToJson(BeaconResponse instance) =>
+    <String, dynamic>{
+      'beaconResponse': instance.beaconResponse,
+    };
+
 KontaktBeaconEvent _$KontaktBeaconEventFromJson(Map<String, dynamic> json) {
   return KontaktBeaconEvent(
     json['beacon'] == null
@@ -27,9 +42,10 @@ KontaktBeaconResponse _$KontaktBeaconResponseFromJson(
         ? null
         : KontaktDeviceInformation.fromJson(
             json['device_info'] as Map<String, dynamic>),
-    json['kontaktBeacon'] == null
-        ? null
-        : Kontakt.fromJson(json['kontaktBeacon'] as Map<String, dynamic>),
+    json['instance_id'] as String,
+    json['namespace_id'] as String,
+    json['status'] as String,
+    json['unique_id'] as String,
   );
 }
 
@@ -37,7 +53,10 @@ Map<String, dynamic> _$KontaktBeaconResponseToJson(
         KontaktBeaconResponse instance) =>
     <String, dynamic>{
       'device_info': instance.deviceInformation,
-      'kontaktBeacon': instance.kontaktBeacon,
+      'instance_id': instance.instanceId,
+      'namespace_id': instance.namespaceId,
+      'status': instance.status,
+      'unique_id': instance.uniqueId,
     };
 
 KontaktDeviceInformation _$KontaktDeviceInformationFromJson(
@@ -61,20 +80,4 @@ Map<String, dynamic> _$KontaktDeviceInformationToJson(
       'rssi': instance.rssi,
       'timestamp': instance.timestamp,
       'txPower': instance.txPower,
-    };
-
-Kontakt _$KontaktFromJson(Map<String, dynamic> json) {
-  return Kontakt(
-    json['instance_id'] as String,
-    json['namespace_id'] as String,
-    json['status'] as String,
-    json['unique_id'] as String,
-  );
-}
-
-Map<String, dynamic> _$KontaktToJson(Kontakt instance) => <String, dynamic>{
-      'instance_id': instance.instanceId,
-      'namespace_id': instance.namespaceId,
-      'status': instance.status,
-      'unique_id': instance.uniqueId,
     };

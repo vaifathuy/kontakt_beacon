@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kontakt_beacon/Helper/beacon.dart';
 import 'package:kontakt_beacon/kontakt_beacon.dart';
+import 'package:kontakt_beacon/model/beacon_signal.dart';
+import 'package:kontakt_beacon_example/beacon_signal.dart';
 import 'package:kontakt_beacon_example/second_screen.dart';
 import 'package:location/location.dart';
 import 'package:rxdart/rxdart.dart';
@@ -61,7 +64,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+
   Location location = new Location();
 
   bool _serviceEnabled;
@@ -69,6 +72,10 @@ class _MyAppState extends State<MyApp> {
   LocationData _locationData;
   String info = '';
   String version = "";
+
+  List<KontaktBeaconEvent> beaconList = List();
+  StreamController<String> streamController = StreamController.broadcast();
+
 
   @override
   void initState() {
@@ -148,6 +155,8 @@ class _MyAppState extends State<MyApp> {
         payload: 'item x');
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -159,7 +168,7 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             Text("data"),
             StreamBuilder<String>(
-              stream: KontaktBeacon.shared.testEvent.stream,
+              stream: streamController.stream,
               builder: (context, snapshot) {
                 return Center(
                   child: Text(snapshot.data != null ? snapshot.data : ''),
@@ -177,6 +186,7 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
     didReceiveLocalNotificationSubject.close();
     selectNotificationSubject.close();
+    streamController.close();
   }
 
   // Helper functions
@@ -208,8 +218,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void setupEventListener(){
+
     KontaktBeacon.shared.testEvent.stream.listen((event) {
-      _showNotification();
+      beaconList.clear();
+      List<dynamic> json = jsonDecode(event.toString()) ;
+      json.forEach((element) {
+        KontaktBeaconEvent beacon = KontaktBeaconEvent.fromJson(element);
+        beaconList.add(beacon);
+      });
+      if(beaconList.where((element) =>( element.beacon.status == "didEnter" ||  element.beacon.status == "didMonitor")).length > 0) {
+        streamController.add("Detecting signal.....");
+      } else {
+        streamController.add("Losing signal.....");
+      }
     });
   }
 
@@ -227,25 +248,9 @@ class _MyAppState extends State<MyApp> {
     }
     Beacon beaconI = Beacon('fdu1', 'f7826da6bc5b71e0893e', '6b4761767466');
     Beacon beaconII = Beacon('JpWD', 'f7826da6bc5b71e0893e', '566761644865');
+    Beacon beaconIII = Beacon('hFHH', 'f7826da6bc5b71e0893e', '586f47707a77');
+
     // startBeaconMonitoring(beaconI);
-    startBeaconMonitoring(beaconII);
-  }
-}
-
-class PaddedRaisedButton extends StatelessWidget {
-  final String buttonText;
-  final VoidCallback onPressed;
-
-  const PaddedRaisedButton({
-    @required this.buttonText,
-    @required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-      child: RaisedButton(child: Text(buttonText), onPressed: onPressed),
-    );
+    startBeaconMonitoring(beaconIII);
   }
 }

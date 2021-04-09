@@ -19,7 +19,6 @@ class KontaktBeacon {
 
     try {
       _eventChannel.receiveBroadcastStream(['beaconStatus', 'applicationState']).listen((dynamic event) {
-        BeaconResponse beaconResponse = KontaktBeacon.shared.welcomeFromJson(event);
         testEvent.add(event.toString());
       }, onError: (dynamic error) {
         // testEvent.add(error.message);
@@ -81,9 +80,9 @@ class KontaktBeacon {
     }
   }
 
-  BeaconResponse welcomeFromJson(String str) => BeaconResponse.fromJson(json.decode(str));
-  String welcomeToJson(BeaconResponse data) => json.encode(data.toJson());
-  
+  List<BeaconResponse> beaconResponseFromJson(String str) => List<BeaconResponse>.from(json.decode(str).map((x) => BeaconResponse.fromJson(x)));
+  String beaconResponseToJson(List<BeaconResponse> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 }
 
 class BeaconResponse {
