@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/kontakt_beacon.iml" filepath="$PROJECT_DIR$/kontakt_beacon.iml" group="kontakt_beacon" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kontakt_beacon.iml" filepath="$PROJECT_DIR$/.idea/modules/kontakt_beacon.iml" />
     </modules>
   </component>
 </project>

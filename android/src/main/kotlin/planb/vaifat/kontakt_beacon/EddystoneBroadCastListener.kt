@@ -28,6 +28,7 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
     }
 
     override fun onEddystoneDiscovered(eddystone: IEddystoneDevice?, namespace: IEddystoneNamespace?) {
+        val list: ArrayList<String> = arrayListOf()
         if(eddystone?.instanceId.equals(namespace?.instanceId)) {
             beaconResponse = BeaconResponse(
                     namespace_id = eddystone?.namespace,
@@ -45,11 +46,14 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
             )
             beacon = Beacon(beacon = beaconResponse)
             val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
-            events?.success(beaconToString)
+            list.add(beaconToString)
         }
+        events?.success(list)
+
     }
 
     override fun onEddystonesUpdated(eddystones: MutableList<IEddystoneDevice>?, namespace: IEddystoneNamespace?) {
+        val list: ArrayList<String> = arrayListOf()
         eddystones?.filter { i -> i.instanceId == namespace?.instanceId }
         eddystones?.forEach { item ->
             beaconResponse = BeaconResponse(
@@ -69,11 +73,14 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
             )
             beacon = Beacon(beacon = beaconResponse)
             val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
-            events?.success(beaconToString)
+            list.add(beaconToString)
         }
+
+        events?.success(list)
     }
 
     override fun onEddystoneLost(eddystone: IEddystoneDevice?, namespace: IEddystoneNamespace?) {
+        val list: ArrayList<String> = arrayListOf()
         if(eddystone?.namespace == namespace?.namespace) {
             beaconResponse = BeaconResponse(
                     namespace_id = eddystone?.namespace,
@@ -91,8 +98,9 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
             )
             beacon = Beacon(beacon = beaconResponse)
             val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
-            events?.success(beaconToString)
+            list.add(beaconToString)
         }
+        events?.success(list)
     }
 
     override fun onMonitoringCycleStop() {
@@ -115,9 +123,11 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
     }
 
     override fun onScanError(scanError: ScanError?) {
+        var list: ArrayList<String> = arrayListOf()
         beaconResponse = BeaconResponse(status = BeaconStatus.DidExit.value)
         beacon = Beacon(beacon = beaconResponse)
         val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
-        events?.success(beaconToString)
+        list.add(beaconToString)
+        events?.success(list)
     }
 }
