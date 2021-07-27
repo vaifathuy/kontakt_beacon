@@ -45,7 +45,7 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
                     )
             )
             beacon = Beacon(beacon = beaconResponse)
-            val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
+            val beaconToString: String = StringToJsonConverter.convert(beacon = beacon)
             list.add(beaconToString)
         }
         events?.success(list)
@@ -72,7 +72,7 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
                     )
             )
             beacon = Beacon(beacon = beaconResponse)
-            val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
+            val beaconToString: String = StringToJsonConverter.convert(beacon = beacon)
             list.add(beaconToString)
         }
 
@@ -97,7 +97,7 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
                     )
             )
             beacon = Beacon(beacon = beaconResponse)
-            val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
+            val beaconToString: String = StringToJsonConverter.convert(beacon = beacon)
             list.add(beaconToString)
         }
         events?.success(list)
@@ -126,7 +126,7 @@ class EddystoneBroadCastListener(private var context: Context): EventChannel.Str
         var list: ArrayList<String> = arrayListOf()
         beaconResponse = BeaconResponse(status = BeaconStatus.DidExit.value)
         beacon = Beacon(beacon = beaconResponse)
-        val beaconToString: String = StringToJsonConverter.convert(beacon = beacon!!)
+        val beaconToString: String = StringToJsonConverter.convert(beacon = beacon)
         list.add(beaconToString)
         events?.success(list)
     }
